@@ -1,0 +1,123 @@
+<div class="auth-container">
+  <div class="auth-wrapper">
+    <div class="auth-header">
+      <div class="logo-section">
+        <img src="assets/icons/Alten-Logo-Vector.webp" alt="Alten Logo" class="auth-logo" />
+        <h1 class="auth-title">Inscription</h1>
+        <p class="auth-subtitle">Rejoignez la communauté ALTEN SHOP</p>
+      </div>
+    </div>
+
+    <div class="auth-content">
+      <form #registerForm="ngForm" (ngSubmit)="onSubmit()" class="auth-form">
+        <div class="form-row">
+          <div class="form-group">
+            <div class="input-wrapper">
+              <i class="pi pi-user input-icon"></i>
+              <input
+                pInputText
+                id="username"
+                name="username"
+                type="text"
+                [(ngModel)]="userData.username"
+                required
+                minlength="3"
+                class="modern-input"
+              />
+              <label for="username" class="floating-label">Nom d'utilisateur</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="input-wrapper">
+              <i class="pi pi-id-card input-icon"></i>
+              <input
+                pInputText
+                id="firstname"
+                name="firstname"
+                type="text"
+                [(ngModel)]="userData.firstname"
+                required
+                class="modern-input"
+              />
+              <label for="firstname" class="floating-label">Prénom</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="input-wrapper">
+            <i class="pi pi-envelope input-icon"></i>
+            <input
+              pInputText
+              id="email"
+              name="email"
+              type="email"
+              [(ngModel)]="userData.email"
+              required
+              email
+              class="modern-input"
+            />
+            <label for="email" class="floating-label">Email</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="input-wrapper">
+            <i class="pi pi-lock input-icon"></i>
+            <input
+              pInputText
+              type="password"
+              id="password"
+              name="password"
+              [(ngModel)]="userData.password"
+              required
+              minlength="6"
+              class="modern-input"
+            />
+            <label for="password" class="floating-label">Mot de passe</label>
+          </div>
+        </div>
+
+        <div class="message-section">
+          <div class="error-message" *ngIf="errorMessage">
+            <i class="pi pi-exclamation-triangle"></i>
+            <span>{{ errorMessage }}</span>
+          </div>
+
+          <div class="success-message" *ngIf="successMessage">
+            <i class="pi pi-check-circle"></i>
+            <span>{{ successMessage }}</span>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button
+            type="submit"
+            class="auth-button"
+            [class.loading]="isLoading"
+            [disabled]="!registerForm.valid || isLoading">
+            <span *ngIf="!isLoading" class="button-content">
+              <i class="pi pi-user-plus"></i>
+              Créer mon compte
+            </span>
+            <span *ngIf="isLoading" class="button-loading">
+              <i class="pi pi-spin pi-spinner"></i>
+              Création...
+            </span>
+          </button>
+        </div>
+
+        <div class="auth-footer">
+          <div class="divider">
+            <span>ou</span>
+          </div>
+          <p class="signin-link">
+            Déjà membre ?
+            <a routerLink="/sign-in" class="link-primary">Se connecter</a>
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
