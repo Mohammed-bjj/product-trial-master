@@ -139,7 +139,7 @@
   border-radius: 16px;
   border: 1px solid var(--surface-200);
   transition: all 0.3s ease;
-  
+
   &:hover {
     background: var(--surface-100);
     border-color: var(--surface-300);
@@ -227,10 +227,7 @@
   line-height: 1;
 }
 
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-}
+
 
 @media (max-width: 768px) {
   .header-content {
