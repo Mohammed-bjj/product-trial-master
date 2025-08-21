@@ -1,0 +1,82 @@
+<div class="auth-container">
+  <div class="auth-wrapper">
+    <div class="auth-header">
+      <div class="logo-section">
+        <img src="assets/icons/Alten-Logo-Vector.webp" alt="Alten Logo" class="auth-logo" />
+        <h1 class="auth-title">Connexion</h1>
+        <p class="auth-subtitle">Accédez à votre compte ALTEN SHOP</p>
+      </div>
+    </div>
+
+    <div class="auth-content">
+      <form #loginForm="ngForm" (ngSubmit)="onSubmit()" class="auth-form">
+        <div class="form-group">
+          <div class="input-wrapper">
+            <i class="pi pi-envelope input-icon"></i>
+            <input
+              pInputText
+              id="email"
+              name="email"
+              type="email"
+              [(ngModel)]="credentials.email"
+              required
+              email
+              class="modern-input"
+            />
+            <label for="email" class="floating-label">Email</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="input-wrapper">
+            <i class="pi pi-lock input-icon"></i>
+            <input
+              pInputText
+              type="password"
+              id="password"
+              name="password"
+              [(ngModel)]="credentials.password"
+              required
+              class="modern-input"
+            />
+            <label for="password" class="floating-label">Mot de passe</label>
+          </div>
+        </div>
+
+        <div class="error-section" *ngIf="errorMessage">
+          <div class="error-message">
+            <i class="pi pi-exclamation-triangle"></i>
+            <span>{{ errorMessage }}</span>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button
+            type="submit"
+            class="auth-button"
+            [class.loading]="isLoading"
+            [disabled]="!loginForm.valid || isLoading">
+            <span *ngIf="!isLoading" class="button-content">
+              <i class="pi pi-sign-in"></i>
+              Se connecter
+            </span>
+            <span *ngIf="isLoading" class="button-loading">
+              <i class="pi pi-spin pi-spinner"></i>
+              Connexion...
+            </span>
+          </button>
+        </div>
+
+        <div class="auth-footer">
+          <div class="divider">
+            <span>ou</span>
+          </div>
+          <p class="signup-link">
+            Nouveau sur ALTEN SHOP ?
+            <a routerLink="/sign-up" class="link-primary">Créer un compte</a>
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
