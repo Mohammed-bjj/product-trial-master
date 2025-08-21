@@ -1,0 +1,84 @@
+<header class="modern-header">
+  <div class="header-content">
+    <div class="brand-section">
+      <div class="logo-wrapper">
+        <img src="assets/icons/Alten-Logo-Vector.webp" alt="Alten Logo" class="logo" />
+      </div>
+      <div class="brand-info">
+        <h1 class="brand-title">{{ title }}</h1>
+        <span class="brand-subtitle">E-commerce Platform</span>
+      </div>
+    </div>
+    
+    <nav class="header-nav">
+      <div class="nav-actions">
+        <!-- Section Outils -->
+        <div class="tools-section">
+          <app-theme-toggle />
+        </div>
+
+        <!-- Section E-commerce -->
+        <div *ngIf="isAuthenticated" class="commerce-section">
+          <div class="cart-wrapper" pTooltip="Mon panier ({{ cartItemCount }} articles)" tooltipPosition="bottom">
+            <p-button
+              icon="pi pi-shopping-cart"
+              [label]="cartItemCount > 0 ? cartItemCount.toString() : ''"
+              [text]="true"
+              [rounded]="true"
+              class="cart-btn"
+              [class.has-items]="cartItemCount > 0"
+              (onClick)="onCartClick()" />
+          </div>
+        </div>
+
+        <!-- Section Authentification -->
+        <div class="auth-section">
+          <!-- Badge Admin -->
+          <div *ngIf="isAdmin" class="admin-badge">
+            <p-button
+              label="ADMIN"
+              icon="pi pi-shield"
+              severity="warning"
+              size="small"
+              [raised]="true" />
+          </div>
+
+          <!-- Utilisateur non connecté -->
+          <div *ngIf="!isAuthenticated" class="guest-actions">
+            <p-button
+              icon="pi pi-sign-in"
+              label="Connexion"
+              severity="success"
+              size="small"
+              (onClick)="onLogin()" />
+            <p-button
+              icon="pi pi-user-plus"
+              label="S'inscrire"
+              [outlined]="true"
+              severity="info"
+              size="small"
+              (onClick)="onRegister()" />
+          </div>
+
+          <!-- Utilisateur connecté -->
+          <div *ngIf="isAuthenticated" class="user-profile">
+            <div class="user-avatar">
+              <i class="pi pi-user"></i>
+            </div>
+            <div class="user-details">
+              <span class="username">Utilisateur</span>
+              <span class="user-role">{{ isAdmin ? 'Administrateur' : 'Utilisateur' }}</span>
+            </div>
+            <p-button
+              icon="pi pi-sign-out"
+              [text]="true"
+              [rounded]="true"
+              severity="secondary"
+              pTooltip="Se déconnecter"
+              (onClick)="onLogout()" />
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
