@@ -1,4 +1,9 @@
+.auth-layout {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
 .app-content {
-    overflow: hidden;
-    height: 100%;
+  padding: 1rem;
 }
