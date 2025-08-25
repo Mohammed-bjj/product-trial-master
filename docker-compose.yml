@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  database:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=alten_shop
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - app-network
+
+  back_app:
+    build:
+      context: .
+      dockerfile: dockerfile-back
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://database:3306/alten_shop
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=password
+    networks:
+      - app-network
+    restart: on-failure
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_HOST=database
+      - PMA_PORT=3306
+    ports:
+      - "3306:80"
+    depends_on:
+      - database
+    networks:
+      - app-network
+
+volumes:
+  db_data:
+
+networks:
+  app-network:
+    driver: bridge
+
+
+
