@@ -14,3 +14,16 @@ front/.browserslistrc
 front/.editorconfig
 
 
+
+# Back: Spring boot veriosn 3.5.5
+back/HELP.md
+back/target/
+back/.mvn/wrapper/maven-wrapper.jar
+back/!**/src/main/**/target/
+back/!**/src/test/**/target/
+
+
+
+
+
+

@@ -16,7 +16,7 @@ services:
   back_app:
     build:
       context: .
-      dockerfile: dockerfile-back
+      dockerfile: dockerfile-back-dev
     ports:
       - "8080:8080"
     depends_on:
@@ -25,6 +25,9 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:mysql://database:3306/alten_shop
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=password
+    volumes:
+      - ./back/src:/app/src
+      - ./back/pom.xml:/app/pom.xml
     networks:
       - app-network
     restart: on-failure
@@ -35,7 +38,7 @@ services:
       - PMA_HOST=database
       - PMA_PORT=3306
     ports:
-      - "3306:80"
+      - "8081:80"
     depends_on:
       - database
     networks:
