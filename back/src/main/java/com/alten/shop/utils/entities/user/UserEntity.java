@@ -1,4 +1,4 @@
-package com.alten.shop.utils.entities;
+package com.alten.shop.utils.entities.user;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -48,6 +48,6 @@ public class UserEntity {
     private Role role = Role.USER;
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_"+ role.name())) ;
+        return List.of(new SimpleGrantedAuthority(role.name())) ;
     }
 }
