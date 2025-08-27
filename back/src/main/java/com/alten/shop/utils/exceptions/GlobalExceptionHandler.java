@@ -1,5 +1,6 @@
 package com.alten.shop.utils.exceptions;
 
+import com.alten.shop.services.user.AccountService;
 import com.alten.shop.utils.exceptions.Uncheck.UserAlreadyExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,9 +14,35 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.util.Map;
 import java.util.stream.Collectors;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
+
+    private boolean isAdminRequest() {
+        try {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            if (auth != null && auth.getAuthorities() != null) {
+                return auth.getAuthorities().stream()
+                        .anyMatch(authority -> authority.getAuthority().contains("ADMIN"));
+            }
+            
+            // Vérifier aussi l'URL
+            ServletRequestAttributes attrs = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+            if (attrs != null) {
+                HttpServletRequest request = attrs.getRequest();
+                return request.getRequestURI().contains("/admin");
+            }
+        } catch (Exception e) {
+            // TODO
+        }
+        return false;
+    }
 
     @ExceptionHandler(NoHandlerFoundException.class)
     public ResponseEntity<Map<String, String>> handleNotFound(NoHandlerFoundException ex) {
@@ -53,10 +80,45 @@ public class GlobalExceptionHandler {
                 .body(Map.of("error", "Access denied", "message", "Insufficient privileges to access this resource"));
     }
 
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<Map<String, Object>> handleRuntimeException(RuntimeException ex) {
+        // Log l'erreur pour les développeurs
+        System.err.println("Runtime error: " + ex.getMessage());
+        
+        if (isAdminRequest()) {
+            // Admin : détails complets
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of(
+                        "error", "Runtime Exception",
+                        "message", ex.getMessage(),
+                        "type", ex.getClass().getSimpleName(),
+                        "timestamp", System.currentTimeMillis()
+                    ));
+        } else {
+            // Public : message générique
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("error", "Request failed", "message", "Unable to process your request. Please try again."));
+        }
+    }
+
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Map<String, String>> handleInternalError(Exception ex) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(Map.of("error", "Internal server error", "message", "An unexpected error occurred"));
+    public ResponseEntity<Map<String, Object>> handleInternalError(Exception ex) {
+        
+        if (isAdminRequest()) {
+            // Admin : détails techniques complets
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of(
+                        "error", "Internal Server Error",
+                        "message", ex.getMessage(),
+                        "type", ex.getClass().getSimpleName(),
+                        "stackTrace", ex.getStackTrace()[0].toString(),
+                        "timestamp", System.currentTimeMillis()
+                    ));
+        } else {
+            // Public : message vague (sécurité)
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", "Service temporarily unavailable", "message", "Please try again later or contact support"));
+        }
     }
 
 

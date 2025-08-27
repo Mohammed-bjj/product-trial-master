@@ -3,6 +3,7 @@ package com.alten.shop.utils.entities.user;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,8 +25,6 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Explicit getters for compilation
-    // Explicit setters for compilation
     @NotBlank(message = "Username is required")
     @Email(message = "Format d'email invalide")
     @Column(unique = true, nullable = false)
@@ -43,6 +42,7 @@ public class UserEntity {
     @Column(nullable = false)
     private String lastName;
 
+    @NotNull(message = "Role is required")
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role = Role.USER;

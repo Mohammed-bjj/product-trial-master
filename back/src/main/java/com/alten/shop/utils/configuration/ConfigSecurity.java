@@ -46,10 +46,6 @@ public class ConfigSecurity {
     @Value("${app.pwd}")
     private String pwd;
 
-
-
-
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
@@ -60,11 +56,12 @@ public class ConfigSecurity {
                                 "/swagger-ui/**",
                                 "/swagger-resources/**",
                                 "/account/login",
-                                "/account/register").permitAll()
+                                "/account/register",
+                                "/products").permitAll()
                         .anyRequest().authenticated()
                 )
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
-                .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())))
+                .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
                 .cors(Customizer.withDefaults())
                 .build();
     }
@@ -83,17 +80,7 @@ public class ConfigSecurity {
 
 
 
-    @Bean
-    public org.springframework.core.convert.converter.Converter<org.springframework.security.oauth2.jwt.Jwt, org.springframework.security.authentication.AbstractAuthenticationToken> jwtAuthenticationConverter() {
-        return jwt -> {
-            String authorities = jwt.getClaimAsString("authorities");
-            System.out.println("JWT authorities: " + authorities);
-            var authList = java.util.Arrays.stream(authorities.split(" "))
-                    .map(org.springframework.security.core.authority.SimpleGrantedAuthority::new)
-                    .collect(java.util.stream.Collectors.toList());
-            return new org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken(jwt, authList);
-        };
-    }
+
 
 
 
