@@ -1,51 +1,115 @@
 package com.alten.shop.services.user;
 
 import com.alten.shop.dao.user.UserRepository;
+import com.alten.shop.utils.dtos.user.input.LoginRequestDTO;
 import com.alten.shop.utils.dtos.user.input.RegisterRequestDTO;
+import com.alten.shop.utils.dtos.user.output.LoginResponseDTO;
 import com.alten.shop.utils.dtos.user.output.ProfileResponseDTO;
-import com.alten.shop.utils.entities.User;
+import com.alten.shop.utils.entities.UserEntity;
 import com.alten.shop.utils.exceptions.Uncheck.UserAlreadyExistsException;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.alten.shop.utils.mappers.UserMapper;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
+import org.springframework.security.oauth2.jwt.JwsHeader;
+import org.springframework.security.oauth2.jwt.JwtClaimsSet;
+import org.springframework.security.oauth2.jwt.JwtEncoder;
+import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
 
-@Service
-public class AccountServiceImpl implements AccountService {
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
-    @Autowired
-    private UserRepository userRepository;
+@Service
+public class AccountServiceImpl implements AccountService, UserDetailsService {
+
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final UserMapper userMapper;
+    private final JwtEncoder jwtEncoder;
     
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    public AccountServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, 
+                             UserMapper userMapper, JwtEncoder jwtEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.userMapper = userMapper;
+        this.jwtEncoder = jwtEncoder;
+    }
     
     @Override
-    public ProfileResponseDTO addNewUSer(RegisterRequestDTO userDto) {
-        System.out.println("hello service test");
+    public Optional<ProfileResponseDTO> addNewUSer(RegisterRequestDTO userDto) throws UserAlreadyExistsException {
         if(userRepository.existsByEmail(userDto.email())){
             throw new UserAlreadyExistsException("Email already exists");
         }
 
-        User user = new User();
-        user.setEmail(userDto.email());
+        UserEntity user = userMapper.toEntity(userDto);
         user.setPassword(passwordEncoder.encode(userDto.password()));
-        user.setFirstName(userDto.firstName());
-        user.setLastName(userDto.lastName());
+        
+        UserEntity savedUser = userRepository.save(user);
+        
+        return Optional.of(userMapper.toProfileDto(savedUser));
+    }
+  // eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJleHAiOjE3NTYyNTUxNjMsImlhdCI6MTc1NjI1MTU2Mywic2NvcGUiOiJST0xFX0FETUlOIn0.QoGfrgX5bb-ZYRVvKSoRyFmCQT5s8s35T0livVqxFj5FBOKJjeqEIv1fO_RbHS6hhrXiTZyE843F_QXw5h3L3A
+    @Override
+    public Optional<LoginResponseDTO> login(LoginRequestDTO loginRequestDTO, Authentication authentication) {
+        Instant instant = Instant.now();
+        String scopeAuth = authentication.getAuthorities()
+                .stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(" "));
+        JwtClaimsSet jwtClaimsSet = JwtClaimsSet.builder()
+                .issuedAt(instant)
+                .expiresAt(instant.plus(60, ChronoUnit.MINUTES))
+                .subject(loginRequestDTO.email())
+                .claim("scope", scopeAuth)
+                .claim("authorities", scopeAuth)
+                .build();
 
-        
-        User savedUser = userRepository.save(user);
-        
-        return new ProfileResponseDTO(
-            savedUser.getEmail(),
-            savedUser.getFirstName(),
-            savedUser.getLastName(),
-            java.time.LocalDateTime.now()
-        );
+        JwtEncoderParameters jwtEncoderParameters =
+                JwtEncoderParameters.from(
+                        JwsHeader.with(MacAlgorithm.HS512).build(),
+                        jwtClaimsSet
+                );
+        System.out.println("scope test "+ scopeAuth);
+        String jwt = jwtEncoder.encode(jwtEncoderParameters).getTokenValue();
+
+        return Optional.of(userMapper.toLoginResponseDto(jwt));
     }
 
     @Override
-    public org.springframework.security.core.userdetails.User loadUserByEmail(String email) throws Exception {
-        return null;
+    public Optional<List<ProfileResponseDTO>> loadAllUsers() {
+        return Optional.of(userRepository.findAll()
+                .stream()
+                .map(userMapper::toProfileDto)
+                .toList());
     }
+
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        UserEntity user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
+        return  User.builder()
+                .username(user.getEmail())
+                .password(user.getPassword())
+                .roles(user.getRole().name())
+                .build();
+
+    }
+
+
+
+
+
 
 
 }

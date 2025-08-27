@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotBlank;
 
 
 public record LoginResponseDTO(
+
+
         @NotBlank(message = "Token is required")
-        String token )
+        String access_token )
 {}

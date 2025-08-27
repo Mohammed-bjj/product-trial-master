@@ -6,13 +6,18 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
 @Data // Génère getters, setters, toString, equals, hashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class UserEntity {
 
 
     @Id
@@ -42,4 +47,7 @@ public class User {
     @Column(nullable = false)
     private Role role = Role.USER;
 
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_"+ role.name())) ;
+    }
 }
