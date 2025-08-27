@@ -1,9 +1,12 @@
 package com.alten.shop.dao.user;
 
-import com.alten.shop.utils.entities.User;
+import com.alten.shop.utils.entities.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+import java.util.Optional;
+
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
     
     boolean existsByEmail(String email);
+    Optional<UserEntity> findByEmail(String email);
 }
