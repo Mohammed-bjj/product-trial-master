@@ -47,7 +47,7 @@ public class AccountRestAPI {
 
 
     @GetMapping("/users")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('SCOPE_ROLE_ADMIN')")
     public ResponseEntity<List<ProfileResponseDTO>> getAllUsers() {
         List<ProfileResponseDTO> users = accountService.loadAllUsers()
                 .orElseThrow(() -> new RuntimeException("Failed to load users"));
