@@ -5,7 +5,7 @@ import com.alten.shop.utils.dtos.user.input.LoginRequestDTO;
 import com.alten.shop.utils.dtos.user.input.RegisterRequestDTO;
 import com.alten.shop.utils.dtos.user.output.LoginResponseDTO;
 import com.alten.shop.utils.dtos.user.output.ProfileResponseDTO;
-import com.alten.shop.utils.entities.UserEntity;
+import com.alten.shop.utils.entities.user.UserEntity;
 import com.alten.shop.utils.exceptions.Uncheck.UserAlreadyExistsException;
 import com.alten.shop.utils.mappers.UserMapper;
 
@@ -50,7 +50,6 @@ public class AccountServiceImpl implements AccountService, UserDetailsService {
         if(userRepository.existsByEmail(userDto.email())){
             throw new UserAlreadyExistsException("Email already exists");
         }
-
         UserEntity user = userMapper.toEntity(userDto);
         user.setPassword(passwordEncoder.encode(userDto.password()));
         
@@ -58,20 +57,26 @@ public class AccountServiceImpl implements AccountService, UserDetailsService {
         
         return Optional.of(userMapper.toProfileDto(savedUser));
     }
-  // eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJleHAiOjE3NTYyNTUxNjMsImlhdCI6MTc1NjI1MTU2Mywic2NvcGUiOiJST0xFX0FETUlOIn0.QoGfrgX5bb-ZYRVvKSoRyFmCQT5s8s35T0livVqxFj5FBOKJjeqEIv1fO_RbHS6hhrXiTZyE843F_QXw5h3L3A
+
+
+
     @Override
     public Optional<LoginResponseDTO> login(LoginRequestDTO loginRequestDTO, Authentication authentication) {
         Instant instant = Instant.now();
-        String scopeAuth = authentication.getAuthorities()
-                .stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.joining(" "));
+
+        String scopeAuth = this.getRole(authentication)
+                .orElseThrow(() -> new RuntimeException("role not found"));
+        
+        UserEntity user = userRepository.findByEmail(loginRequestDTO.email())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        
         JwtClaimsSet jwtClaimsSet = JwtClaimsSet.builder()
                 .issuedAt(instant)
                 .expiresAt(instant.plus(60, ChronoUnit.MINUTES))
                 .subject(loginRequestDTO.email())
                 .claim("scope", scopeAuth)
                 .claim("authorities", scopeAuth)
+                .claim("lastName", user.getLastName())
                 .build();
 
         JwtEncoderParameters jwtEncoderParameters =
@@ -79,9 +84,7 @@ public class AccountServiceImpl implements AccountService, UserDetailsService {
                         JwsHeader.with(MacAlgorithm.HS512).build(),
                         jwtClaimsSet
                 );
-        System.out.println("scope test "+ scopeAuth);
         String jwt = jwtEncoder.encode(jwtEncoderParameters).getTokenValue();
-
         return Optional.of(userMapper.toLoginResponseDto(jwt));
     }
 
@@ -91,6 +94,15 @@ public class AccountServiceImpl implements AccountService, UserDetailsService {
                 .stream()
                 .map(userMapper::toProfileDto)
                 .toList());
+    }
+
+
+    @Override
+    public Optional<String> getRole(Authentication authentication) {
+      return  Optional.of(authentication.getAuthorities()
+              .stream()
+              .map(GrantedAuthority::getAuthority)
+              .collect(Collectors.joining(" ")));
     }
 
 

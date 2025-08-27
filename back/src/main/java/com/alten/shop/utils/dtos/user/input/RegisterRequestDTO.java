@@ -9,6 +9,7 @@ import lombok.Data;
 
 public record RegisterRequestDTO (
 
+
     @NotBlank(message = "Email is required")
     @Email(message = "Invalid email format")
      String email,

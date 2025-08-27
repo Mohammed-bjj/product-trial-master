@@ -1,6 +1,6 @@
 package com.alten.shop.dao.user;
 
-import com.alten.shop.utils.entities.UserEntity;
+import com.alten.shop.utils.entities.user.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
