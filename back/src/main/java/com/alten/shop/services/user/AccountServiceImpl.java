@@ -6,7 +6,7 @@ import com.alten.shop.utils.dtos.user.input.RegisterRequestDTO;
 import com.alten.shop.utils.dtos.user.output.LoginResponseDTO;
 import com.alten.shop.utils.dtos.user.output.ProfileResponseDTO;
 import com.alten.shop.utils.entities.user.UserEntity;
-import com.alten.shop.utils.exceptions.Uncheck.UserAlreadyExistsException;
+import com.alten.shop.utils.exceptions.Uncheck.user.UserAlreadyExistsException;
 import com.alten.shop.utils.mappers.UserMapper;
 
 import org.springframework.security.core.Authentication;
