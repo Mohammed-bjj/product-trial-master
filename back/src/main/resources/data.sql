@@ -2,7 +2,25 @@
 -- Insertion des données de test
 -- Mot de passe pour tous les comptes: figuig
 INSERT IGNORE INTO users (email, password, first_name, last_name, role) VALUES
-('admin@admin.com', '$2a$10$N9qo8uLOickgx2ZMRZoMye/Ci/QcuWZ4KkMqB8FH.vEyVDRDtR8.S', 'Admin', 'System', 'ADMIN');
+('admin@admin.com', '$2a$10$SK1feHw7jHLmRi6FakU.kuuEzZNlZhiWh21xWydI39jv7FqFK52lW', 'Admin', 'System', 'ADMIN'),
+('user1@example.com', '$2a$10$SK1feHw7jHLmRi6FakU.kuuEzZNlZhiWh21xWydI39jv7FqFK52lW', 'John', 'Doe', 'USER'),
+('user2@example.com', '$2a$10$SK1feHw7jHLmRi6FakU.kuuEzZNlZhiWh21xWydI39jv7FqFK52lW', 'Jane', 'Smith', 'USER');
+
+
+-- 2. PANIERS
+INSERT INTO paniers (id, user_id) VALUES
+(1, 2), -- Panier John
+(2, 3); -- Panier Jane
+
+-- 3. WISHLISTS
+INSERT INTO wish_lists (id, user_id) VALUES
+(1, 2), -- Wishlist John
+(2, 3); -- Wishlist Jane
+
+-- 4. ORDERS
+INSERT INTO orders (id, user_id, created_at) VALUES
+(1, 2, NOW()),
+(2, 3, NOW());
 
 -- Insertion des produits
 INSERT IGNORE INTO products (id, code, name, description, image, price, category, quantity, shell_id, internal_reference, inventory_status, rating) VALUES
@@ -36,3 +54,23 @@ INSERT IGNORE INTO products (id, code, name, description, image, price, category
 (1027, 'acvx872gc', 'Yellow Earbuds', 'Product Description', 'yellow-earbuds.jpg', 89, 'Electronics', 35, 15, 'REF-1027', 'INSTOCK', 3),
 (1028, 'tx125ck42', 'Yoga Mat', 'Product Description', 'yoga-mat.jpg', 20, 'Fitness', 15, 15, 'REF-1028', 'INSTOCK', 5),
 (1029, 'gwuby345v', 'Yoga Set', 'Product Description', 'yoga-set.jpg', 20, 'Fitness', 25, 15, 'REF-1029', 'INSTOCK', 5);
+
+
+-- 6. LIENS MANY-TO-MANY PANIER_PRODUCTS
+INSERT INTO panier_products (panier_id, product_id) VALUES
+(1, 1000),
+(1, 1003),
+(1, 1007),
+(2, 1001),
+(2, 1004);
+
+-- 7. LIENS MANY-TO-MANY ORDER_PRODUCTS
+INSERT INTO order_products (order_id, product_id) VALUES
+(1, 1000),
+(1, 1003),
+(2, 1001);
+
+INSERT INTO contacts (id, email, message, created_at, admin_response)
+VALUES
+(1, 'user1@example.com', 'Bonjour, je veux plus d’infos sur vos produits.', NOW(), NULL),
+(2, 'user2@example.com', 'Quand allez-vous réapprovisionner ?', NOW(), 'Bientôt, merci pour votre patience.');
