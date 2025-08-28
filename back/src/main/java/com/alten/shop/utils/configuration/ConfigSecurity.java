@@ -57,7 +57,7 @@ public class ConfigSecurity {
                                 "/swagger-resources/**",
                                 "/account/login",
                                 "/account/register",
-                                "/products").permitAll()
+                                "/products/search").permitAll()
                         .anyRequest().authenticated()
                 )
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
