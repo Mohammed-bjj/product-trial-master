@@ -1,12 +1,13 @@
 package com.alten.shop.api;
 
 import com.alten.shop.services.product.ProductService;
-import com.alten.shop.utils.dtos.IdRequestDTO;
 import com.alten.shop.utils.dtos.product.input.ProductCreateRequestDTO;
 import com.alten.shop.utils.dtos.product.input.ProductUpdateRequestDTO;
 import com.alten.shop.utils.dtos.product.output.ProductResponsePublicDTO;
 import com.alten.shop.utils.dtos.product.output.ProductResponseAdminDTO;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import com.alten.shop.utils.mappers.ProductMapper;
@@ -18,6 +19,8 @@ import org.springframework.validation.annotation.Validated;
 import com.alten.shop.utils.dtos.product.input.ProductSearchRequestDTO;
 import jakarta.validation.Valid;
 import com.alten.shop.utils.configuration.PaginationConfig;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/products")
@@ -34,9 +37,6 @@ public class ProductRestAPI {
         this.paginationConfig = paginationConfig;
     }
 
-
-
-
     @GetMapping("/search")
     public ResponseEntity<Page<ProductResponsePublicDTO>> searchProducts(
             @Valid ProductSearchRequestDTO searchRequest) {
@@ -46,14 +46,13 @@ public class ProductRestAPI {
     }
 
     @PatchMapping("/update/{id}")
-    public ResponseEntity<ProductResponsePublicDTO>  updateProduct(
-            @Valid @PathVariable IdRequestDTO id,
+    @PreAuthorize("hasAuthority('SCOPE_ROLE_ADMIN')")
+    public ResponseEntity<ProductResponseAdminDTO>  updateProduct(
+            @PathVariable @Positive @NotNull(message = "ID is required")  Long id,
             @Valid @RequestBody ProductUpdateRequestDTO product) {
-        productService.updateProduct(id.id(), product);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        ProductResponseAdminDTO productUpdated =  productService.updateProduct(id, product);
+        return ResponseEntity.status(HttpStatus.OK).body(productUpdated);
     }
-
-
 
     @GetMapping("/search/admin")
     @PreAuthorize("hasAuthority('SCOPE_ROLE_ADMIN')")
@@ -69,6 +68,27 @@ public class ProductRestAPI {
     public ResponseEntity<ProductResponseAdminDTO> createProduct(@Valid @RequestBody ProductCreateRequestDTO productCreateRequestDTO) {
         ProductResponseAdminDTO createdProduct = productService.saveProduct(productCreateRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAuthority('SCOPE_ROLE_ADMIN')")
+    public ResponseEntity<Void> deleteProduct(@PathVariable @Positive @NotNull(message = "ID is required")  Long id) {
+        productService.deleteProduct(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @DeleteMapping("/deleteAll")
+    @PreAuthorize("hasAuthority('SCOPE_ROLE_ADMIN')")
+    public ResponseEntity<Void> deleteAllProducts() {
+        productService.deleteAllProduct();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @DeleteMapping("/deleteAllInBatch")
+    @PreAuthorize("hasAuthority('SCOPE_ROLE_ADMIN')")
+    public ResponseEntity<Void> deleteAllProductsInBatch(@RequestBody List<Long> ids) {
+        productService.deleteProductsInBatch(ids);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 }
