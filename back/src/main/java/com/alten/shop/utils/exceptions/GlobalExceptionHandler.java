@@ -1,7 +1,7 @@
 package com.alten.shop.utils.exceptions;
 
-import com.alten.shop.services.user.AccountService;
-import com.alten.shop.utils.exceptions.Uncheck.UserAlreadyExistsException;
+import com.alten.shop.utils.exceptions.Uncheck.AllFieldsNullException;
+import com.alten.shop.utils.exceptions.Uncheck.user.UserAlreadyExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -119,6 +119,14 @@ public class GlobalExceptionHandler {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(Map.of("error", "Service temporarily unavailable", "message", "Please try again later or contact support"));
         }
+    }
+
+
+
+    @ExceptionHandler(AllFieldsNullException.class)
+    public ResponseEntity<Map<String, String>> handleAllFieldsNullException(AllFieldsNullException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Map.of("error", "All fields are null", "message", ex.getMessage()));
     }
 
 
