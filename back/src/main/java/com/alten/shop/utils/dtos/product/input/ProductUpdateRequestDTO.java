@@ -20,8 +20,9 @@ public record ProductUpdateRequestDTO(
         String image,
 
         @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than 0")
-        BigDecimal price,
+        Double price,
 
+        @Pattern(regexp = "Accessories|Electronics|Clothing|Fitness", message = "Invalid Category status")
         String category,
 
         @Min(value = 0, message = "Quantity must be 0 or greater")
