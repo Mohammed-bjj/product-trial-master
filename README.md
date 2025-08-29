@@ -99,3 +99,46 @@ Le back-end créé doit pouvoir gérer les produits dans une base de données SQ
 ## Bonus
 
 Vous pouvez ajouter des tests Postman ou Swagger pour valider votre API
+
+
+# Travail réalisé
+
+
+La partie back-end est terminée conformément aux consignes. L'API permet la gestion :
+ - ### Produit (CRUD)
+ - ### Panier  (CRUD)
+ - ### WishList (CRUD)
+
+Sur le plan technique :
+
+- Architecture en couches
+
+- DTO (input et output)
+
+- Mapper
+
+- Gestion centralisée des exceptions
+
+- Entités
+
+ - Validator
+
+ - Documentation Swagger
+ - DockerFile et Docker compose
+ - batterie teste postman
+
+ [Scénario du test pour user ](./droit%20user.postman_collection.json)
+[Scénario du test pour admin](./droit%20admin.postman_collection.json)
+
+![Swagger](./Capture%20d’écran%20du%202025-08-29%2010-17-03.png)
+
+
+
+
+La partie front-end a bien avancé, notamment :
+
+- L'interface Admin
+
+ - La page de connexion (sign in et sign out)
+
+ - Je travaille sur l'interface utilisateur, l'amélioration du code et de l'architecture de l'application, ainsi que la connexion entre le back-end et le front-end
