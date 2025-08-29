@@ -142,3 +142,9 @@ La partie front-end a bien avancé, notamment :
  - La page de connexion (sign in et sign out)
 
  - Je travaille sur l'interface utilisateur, l'amélioration du code et de l'architecture de l'application, ainsi que la connexion entre le back-end et le front-end
+
+
+
+Pour lancer l'application facilement, il faut installer Docker et Docker Compose, puis l'exécuter avec une seule commande :
+     -  docker-compose up --build  pour démarrer
+     -  docker-compose down -v pour arreter
