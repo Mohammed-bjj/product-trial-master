@@ -1,7 +1,8 @@
 package com.alten.shop.utils.entities.product;
 
+import com.alten.shop.utils.entities.jointure.PanierProduct;
+import com.alten.shop.utils.entities.jointure.WishListProduct;
 import com.alten.shop.utils.entities.order.Order;
-import com.alten.shop.utils.entities.panier.Panier;
 import com.alten.shop.utils.entities.wishList.WishList;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -71,11 +72,11 @@ public class Product {
     @Max(value = 5, message = "Rating must be between 1 and 5")
     private Integer rating;
 
-    @ManyToMany(mappedBy = "products", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Panier> paniers = new ArrayList<>();
+    @OneToMany(mappedBy = "product")
+    private List<PanierProduct> panierProducts = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "products", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<WishList> wishLists = new ArrayList<>();
+    @OneToMany(mappedBy = "product")
+    private List<WishListProduct> wishListProducts = new ArrayList<>();
 
     @ManyToMany(mappedBy = "products", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Order> orders = new ArrayList<>();

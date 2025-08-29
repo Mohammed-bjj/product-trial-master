@@ -1,5 +1,8 @@
 package com.alten.shop.utils.entities.user;
 
+import com.alten.shop.utils.entities.order.Order;
+import com.alten.shop.utils.entities.panier.Panier;
+import com.alten.shop.utils.entities.wishList.WishList;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -7,6 +10,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.LazyToOneOption;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -46,6 +50,16 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role = Role.USER;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Panier panier;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private WishList wishList;
+
+    @OneToMany()
+    private List<Order> orders;
+
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name())) ;

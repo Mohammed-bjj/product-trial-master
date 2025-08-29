@@ -5,6 +5,9 @@ import com.alten.shop.utils.dtos.user.input.LoginRequestDTO;
 import com.alten.shop.utils.dtos.user.input.RegisterRequestDTO;
 import com.alten.shop.utils.dtos.user.output.LoginResponseDTO;
 import com.alten.shop.utils.dtos.user.output.ProfileResponseDTO;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,6 +30,12 @@ public class AccountRestAPI {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Operation(summary = "Login user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User logged"),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error"),
+            @ApiResponse(responseCode = "400", description = "Bad Request")
+    })
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(@Valid @RequestBody LoginRequestDTO loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
@@ -37,6 +46,12 @@ public class AccountRestAPI {
         return ResponseEntity.status(HttpStatus.OK).body(loginResponse);
     }
 
+    @Operation(summary = "Register user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "User created"),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error"),
+            @ApiResponse(responseCode = "400", description = "Bad Request")
+    })
     @PostMapping("/register")
     public ResponseEntity<ProfileResponseDTO> signUp(@Valid @RequestBody RegisterRequestDTO user) {
         ProfileResponseDTO profile = accountService.addNewUSer(user)
@@ -44,7 +59,12 @@ public class AccountRestAPI {
         return ResponseEntity.status(HttpStatus.CREATED).body(profile);
     }
 
-
+    @Operation(summary = "Get all users by admin")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Users found"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error"),
+    })
     @GetMapping("/users")
     @PreAuthorize("hasAuthority('SCOPE_ROLE_ADMIN')")
     public ResponseEntity<List<ProfileResponseDTO>> getAllUsers() {

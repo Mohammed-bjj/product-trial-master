@@ -1,6 +1,8 @@
 package com.alten.shop.services.user;
 
 import com.alten.shop.dao.user.UserRepository;
+import com.alten.shop.services.panier.PanierService;
+import com.alten.shop.services.wishList.WishListService;
 import com.alten.shop.utils.dtos.user.input.LoginRequestDTO;
 import com.alten.shop.utils.dtos.user.input.RegisterRequestDTO;
 import com.alten.shop.utils.dtos.user.output.LoginResponseDTO;
@@ -11,6 +13,7 @@ import com.alten.shop.utils.mappers.UserMapper;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -36,13 +39,17 @@ public class AccountServiceImpl implements AccountService, UserDetailsService {
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
     private final JwtEncoder jwtEncoder;
+    private final PanierService panierService;
+    private final WishListService wishListService;
     
     public AccountServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, 
-                             UserMapper userMapper, JwtEncoder jwtEncoder) {
+                             UserMapper userMapper, JwtEncoder jwtEncoder, PanierService panierService, WishListService wishListService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.userMapper = userMapper;
         this.jwtEncoder = jwtEncoder;
+        this.panierService = panierService;
+        this.wishListService = wishListService;
     }
     
     @Override
@@ -52,9 +59,9 @@ public class AccountServiceImpl implements AccountService, UserDetailsService {
         }
         UserEntity user = userMapper.toEntity(userDto);
         user.setPassword(passwordEncoder.encode(userDto.password()));
-        
         UserEntity savedUser = userRepository.save(user);
-        
+        panierService.createPanier(savedUser);
+        wishListService.createWishList(savedUser);
         return Optional.of(userMapper.toProfileDto(savedUser));
     }
 
@@ -115,13 +122,12 @@ public class AccountServiceImpl implements AccountService, UserDetailsService {
                 .password(user.getPassword())
                 .roles(user.getRole().name())
                 .build();
-
     }
 
 
-
-
-
-
+    @Override
+    public Optional<UserEntity> getProfile(SecurityContext securityContext) {
+        return userRepository.findByEmail(securityContext.getAuthentication().getName());
+    }
 
 }

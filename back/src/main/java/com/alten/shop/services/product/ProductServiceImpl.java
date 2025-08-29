@@ -4,8 +4,8 @@ import com.alten.shop.dao.product.ProductRepository;
 import com.alten.shop.utils.dtos.product.input.ProductCreateRequestDTO;
 import com.alten.shop.utils.dtos.product.input.ProductSearchRequestDTO;
 import com.alten.shop.utils.dtos.product.input.ProductUpdateRequestDTO;
-import com.alten.shop.utils.dtos.product.output.ProductResponseAdminDTO;
-import com.alten.shop.utils.dtos.product.output.ProductResponsePublicDTO;
+import com.alten.shop.utils.dtos.product.output.ProductAdminDTO;
+import com.alten.shop.utils.dtos.product.output.ProductPublicDTO;
 import com.alten.shop.utils.entities.product.Product;
 import com.alten.shop.utils.entities.product.InventoryStatus;
 import com.alten.shop.utils.exceptions.Uncheck.product.ProductAlreadyExistException;
@@ -13,7 +13,6 @@ import com.alten.shop.utils.exceptions.Uncheck.product.ProductNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -68,7 +67,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductResponseAdminDTO updateProduct(Long id, ProductUpdateRequestDTO dto) {
+    public ProductAdminDTO updateProduct(Long id, ProductUpdateRequestDTO dto) {
             return  productRepository.findById(id)
                     .map( (productExisted )  ->  {
                                 Product product = productMapper.toEntity(dto, productExisted);
@@ -80,9 +79,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductResponseAdminDTO saveProduct(ProductCreateRequestDTO p) throws ProductAlreadyExistException {
+    public ProductAdminDTO saveProduct(ProductCreateRequestDTO p) throws ProductAlreadyExistException {
 
-        return (ProductResponseAdminDTO) productRepository.findByCode(p.code())
+        return (ProductAdminDTO) productRepository.findByCode(p.code())
                 .map(product -> {
                     throw new ProductAlreadyExistException("Product already exists");
                 })
@@ -96,7 +95,7 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public Page<ProductResponsePublicDTO> searchProductsForPublic(ProductSearchRequestDTO searchRequest, Pageable pageable) {
+    public Page<ProductPublicDTO> searchProductsForPublic(ProductSearchRequestDTO searchRequest, Pageable pageable) {
         try {
 
             String category = searchRequest.category();
@@ -110,7 +109,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<ProductResponseAdminDTO> searchProductsForAdmin(ProductSearchRequestDTO searchRequest, Pageable pageable) {
+    public Page<ProductAdminDTO> searchProductsForAdmin(ProductSearchRequestDTO searchRequest, Pageable pageable) {
         try {
             String category = searchRequest.category();
             InventoryStatus inventoryStatus = searchRequest.inventoryStatus() == null ? null : InventoryStatus.valueOf(searchRequest.inventoryStatus());
@@ -122,4 +121,11 @@ public class ProductServiceImpl implements ProductService {
             throw new RuntimeException("Failed to search products for admin: " + e.getMessage(), e);
         }
     }
+
+    @Override
+    public Optional<Product> findById(Long id) {
+        return productRepository.findById(id);
+    }
+
+
 }
