@@ -1,11 +1,19 @@
 package com.alten.shop.utils.dtos.panier.input;
 
+import com.alten.shop.utils.dtos.product.output.ProductPublicDTO;
+import jakarta.validation.constraints.NotNull;
+
+import java.util.List;
+
 public record PanierRequestDTO (
 
-        @NotNull(message = "L'ID du produit est obligatoire")
-        Long productId,
+        @NotNull(message = "Id is required")
+        Long id,
 
-        @NotNull(message = "La quantité est obligatoire")
-        Integer quantity
-) {
-}
+        @NotNull(message = "User ID is required")
+        Long userId,
+
+        @NotNull(message = "Products are required")
+        ProductPublicDTO product
+
+){}
