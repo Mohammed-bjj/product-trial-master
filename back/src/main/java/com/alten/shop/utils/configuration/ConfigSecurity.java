@@ -54,7 +54,11 @@ public class ConfigSecurity {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/swagger-ui/**",
-                                "/swagger-resources/**",
+                                 "/swagger-ui.html",
+                                "/favicon.ico",
+                                 "/v3/api-docs/**",
+                                 "/swagger-resources/**",
+                                 "/webjars/**",
                                 "/account/login",
                                 "/account/register",
                                 "/products/search").permitAll()

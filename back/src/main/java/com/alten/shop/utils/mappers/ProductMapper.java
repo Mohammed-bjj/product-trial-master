@@ -2,8 +2,9 @@ package com.alten.shop.utils.mappers;
 
 import com.alten.shop.utils.dtos.product.input.ProductCreateRequestDTO;
 import com.alten.shop.utils.dtos.product.input.ProductUpdateRequestDTO;
-import com.alten.shop.utils.dtos.product.output.ProductResponsePublicDTO;
-import com.alten.shop.utils.dtos.product.output.ProductResponseAdminDTO;
+import com.alten.shop.utils.dtos.product.output.ProductAdminDTO;
+import com.alten.shop.utils.dtos.product.output.ProductPublicDTO;
+import com.alten.shop.utils.entities.jointure.PanierProduct;
 import com.alten.shop.utils.entities.product.Product;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -28,15 +29,15 @@ public interface ProductMapper {
 
 
     Product toEntity(ProductUpdateRequestDTO dto, @MappingTarget Product product);
-
-
-    @Mapping(target = "inventoryStatus", expression = "java(product.getInventoryStatus().name())")
-    @Mapping(target = "category", expression = "java(product.getCategory().name())")
-    ProductResponsePublicDTO toPublicDTO(Product product);
+    Product toEntity(ProductPublicDTO dto);
 
     @Mapping(target = "inventoryStatus", expression = "java(product.getInventoryStatus().name())")
     @Mapping(target = "category", expression = "java(product.getCategory().name())")
-    ProductResponseAdminDTO toAdminDTO(Product product);
+    ProductPublicDTO toPublicDTO(Product product);
+
+    @Mapping(target = "inventoryStatus", expression = "java(product.getInventoryStatus().name())")
+    @Mapping(target = "category", expression = "java(product.getCategory().name())")
+    ProductAdminDTO toAdminDTO(Product product);
 
 
 
