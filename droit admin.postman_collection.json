@@ -1,0 +1,388 @@
+{
+	"info": {
+		"_postman_id": "b32c2a4d-a211-4e17-b7ec-58579eab69f4",
+		"name": "droit admin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47924994",
+		"_collection_link": "https://mohammed-s-team-7.postman.co/workspace/Team-Workspace~9765c7aa-1742-4d40-8520-643d7bb600ac/collection/47924994-b32c2a4d-a211-4e17-b7ec-58579eab69f4?action=share&source=collection_link&creator=47924994"
+	},
+	"item": [
+		{
+			"name": "account user",
+			"item": [
+				{
+					"name": "login as admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@admin.com\",\n    \"password\": \"figuig\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/account/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"account",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/account/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"account",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "products",
+			"item": [
+				{
+					"name": "GET ALL",
+					"item": [
+						{
+							"name": "get All details products as admin by filter",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/products/search/admin?page=0&size=20&category=Accessories&inventoryStatus=INSTOCK&priceSort=DESC",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"products",
+										"search",
+										"admin"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "20"
+										},
+										{
+											"key": "category",
+											"value": "Accessories"
+										},
+										{
+											"key": "inventoryStatus",
+											"value": "INSTOCK"
+										},
+										{
+											"key": "priceSort",
+											"value": "DESC"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get all details product by default filters",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/products/search/admin",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"products",
+										"search",
+										"admin"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Save new Product",
+					"item": [
+						{
+							"name": "create a new product",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "       {\n            \"code\": \"oujdfffa\",\n            \"name\": \"Gaming Set\",\n            \"description\": \"Product Description\",\n            \"price\": 299,\n            \"image\": \"gaming-set.jpg\",\n            \"internalReference\": \"REF-1009\",\n            \"shellId\": 15,\n            \"category\": \"Electronics\",\n            \"quantity\": 1,\n            \"inventoryStatus\": \"INSTOCK\",\n            \"rating\": 3\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/products/newProduct",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"products",
+										"newProduct"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "update product",
+					"item": [
+						{
+							"name": "all field",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\n       {\n            \"code\": \"figuig\",\n            \"name\": \"Gaming Set\",\n            \"description\": \"Product Description\",\n            \"price\": 299,\n            \"image\": \"gaming-set.jpg\",\n            \"internalReference\": \"REF-1009\",\n            \"shellId\": 15,\n            \"category\": \"Electronics\",\n            \"quantity\": 1,\n            \"inventoryStatus\": \"INSTOCK\",\n            \"rating\": 3\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/products/update/1030",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"products",
+										"update",
+										"1030"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Some field",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "      {\n        \n            \"quantity\": 1,\n            \"inventoryStatus\": \"LOWSTOCK\",\n            \"rating\": 5\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/products/update/1030",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"products",
+										"update",
+										"1030"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Any field",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/products/update/1030",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"products",
+										"update",
+										"1030"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete product",
+					"item": [
+						{
+							"name": "one product",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8080/products/delete/1029",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"products",
+										"delete",
+										"1029"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "batch product",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[1013, 1014, 1015, 1016]\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/products/deleteAllInBatch",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"products",
+										"deleteAllInBatch"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "all product",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/products/deleteAll",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"products",
+										"deleteAll"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJsYXN0TmFtZSI6IlN5c3RlbSIsImV4cCI6MTc1NjQzMjYwMSwiaWF0IjoxNzU2NDI5MDAxLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJzY29wZSI6IlJPTEVfQURNSU4ifQ.NN7r53DSXy695E7U_917SPSIcETPnh1LRwjtd7chyQSI8mInqA2ZhM7m-7BNcNluCIkJK228-iHct0EuzCn91w",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"value": "",
+			"type": "string"
+		}
+	]
+}

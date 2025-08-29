@@ -1,0 +1,504 @@
+{
+	"info": {
+		"_postman_id": "04a699a3-1bb8-4a10-8afb-d00fa6c0930e",
+		"name": "droit user",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47924994",
+		"_collection_link": "https://mohammed-s-team-7.postman.co/workspace/Team-Workspace~9765c7aa-1742-4d40-8520-643d7bb600ac/collection/47924994-04a699a3-1bb8-4a10-8afb-d00fa6c0930e?action=share&source=collection_link&creator=47924994"
+	},
+	"item": [
+		{
+			"name": "account",
+			"item": [
+				{
+					"name": "login as  user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"med-gf@live.fr\",\n    \"password\": \"1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/account/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"account",
+								"login"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"med-gf@live.fr\",\n    \"password\": \"1234\",\n    \"firstName\": \"mohammed\",\n    \"lastName\": \"bouajaja\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/account/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"account",
+								"register"
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "products",
+			"item": [
+				{
+					"name": "get all product with filter",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/products/search?page=0&size=20&category=Electronics&inventoryStatus=INSTOCK&priceSort=DESC",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"search"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "20"
+								},
+								{
+									"key": "category",
+									"value": "Electronics"
+								},
+								{
+									"key": "inventoryStatus",
+									"value": "INSTOCK"
+								},
+								{
+									"key": "priceSort",
+									"value": "DESC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "egt all product with filter by default",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/products/search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"search"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "paniers",
+			"item": [
+				{
+					"name": "add product to panier",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtZWQtZ2ZAbGl2ZS5mciIsImxhc3ROYW1lIjoiYm91YWphamEiLCJleHAiOjE3NTY0NTI2MDYsImlhdCI6MTc1NjQ0OTAwNiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJzY29wZSI6IlJPTEVfVVNFUiJ9.afovsVzpTzhjXvtgqJcBrX6ayJIf5eOJZl-g7F7Ws9yM3di2zSD1FSe414FRZe4sDXNx5ZMz6FE-WQSzzS6q9Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "       {\n            \"id\": 1009,\n            \"name\": \"Gaming Set\",\n            \"description\": \"Product Description\",\n            \"price\": 299,\n            \"image\": \"gaming-set.jpg\",\n            \"category\": \"Electronics\",\n            \"quantity\": 63,\n            \"internalReference\": \"REF-1009\",\n            \"inventoryStatus\": \"INSTOCK\",\n            \"rating\": 3\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/panier/addProduct",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"panier",
+								"addProduct"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all product from panier",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "       {\n            \"id\": 1009,\n            \"name\": \"Gaming Set\",\n            \"description\": \"Product Description\",\n            \"price\": 299,\n            \"image\": \"gaming-set.jpg\",\n            \"category\": \"Electronics\",\n            \"quantity\": 63,\n            \"internalReference\": \"REF-1009\",\n            \"inventoryStatus\": \"INSTOCK\",\n            \"rating\": 3\n        }"
+						},
+						"url": {
+							"raw": "http://localhost:8080/panier/getPanier",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"panier",
+								"getPanier"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete one product from panier",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "       {\n            \"id\": 1009,\n            \"name\": \"Gaming Set\",\n            \"description\": \"Product Description\",\n            \"price\": 299,\n            \"image\": \"gaming-set.jpg\",\n            \"category\": \"Electronics\",\n            \"quantity\": 63,\n            \"internalReference\": \"REF-1009\",\n            \"inventoryStatus\": \"INSTOCK\",\n            \"rating\": 3\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/panier/removeProduct",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"panier",
+								"removeProduct"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "clear panier",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "       {\n            \"id\": 1009,\n            \"name\": \"Gaming Set\",\n            \"description\": \"Product Description\",\n            \"price\": 299,\n            \"image\": \"gaming-set.jpg\",\n            \"category\": \"Electronics\",\n            \"quantity\": 63,\n            \"internalReference\": \"REF-1009\",\n            \"inventoryStatus\": \"INSTOCK\",\n            \"rating\": 3\n        }"
+						},
+						"url": {
+							"raw": "http://localhost:8080/panier/clearPanier",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"panier",
+								"clearPanier"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "wishLists",
+			"item": [
+				{
+					"name": "add product to wishList",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "       {\n            \"id\": 1009,\n            \"name\": \"Gaming Set\",\n            \"description\": \"Product Description\",\n            \"price\": 299,\n            \"image\": \"gaming-set.jpg\",\n            \"category\": \"Electronics\",\n            \"quantity\": 63,\n            \"internalReference\": \"REF-1009\",\n            \"inventoryStatus\": \"INSTOCK\",\n            \"rating\": 3\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/wishList/addProduct",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"wishList",
+								"addProduct"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get  wish list",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "       {\n            \"id\": 1009,\n            \"name\": \"Gaming Set\",\n            \"description\": \"Product Description\",\n            \"price\": 299,\n            \"image\": \"gaming-set.jpg\",\n            \"category\": \"Electronics\",\n            \"quantity\": 63,\n            \"internalReference\": \"REF-1009\",\n            \"inventoryStatus\": \"INSTOCK\",\n            \"rating\": 3\n        }"
+						},
+						"url": {
+							"raw": "http://localhost:8080/wishList/getWishList",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"wishList",
+								"getWishList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete one product from wish list",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "       {\n            \"id\": 1009,\n            \"name\": \"Gaming Set\",\n            \"description\": \"Product Description\",\n            \"price\": 299,\n            \"image\": \"gaming-set.jpg\",\n            \"category\": \"Electronics\",\n            \"quantity\": 63,\n            \"internalReference\": \"REF-1009\",\n            \"inventoryStatus\": \"INSTOCK\",\n            \"rating\": 3\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/wishList/removeProduct",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"wishList",
+								"removeProduct"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete all product from wish list",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "       {\n            \"id\": 1009,\n            \"name\": \"Gaming Set\",\n            \"description\": \"Product Description\",\n            \"price\": 299,\n            \"image\": \"gaming-set.jpg\",\n            \"category\": \"Electronics\",\n            \"quantity\": 63,\n            \"internalReference\": \"REF-1009\",\n            \"inventoryStatus\": \"INSTOCK\",\n            \"rating\": 3\n        }"
+						},
+						"url": {
+							"raw": "http://localhost:8080/wishList/clearWishList",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"wishList",
+								"clearWishList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add other product to wishList",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\n            \"id\": 1008,\n            \"name\": \"Game Controller\",\n            \"description\": \"Product Description\",\n            \"price\": 99,\n            \"image\": \"game-controller.jpg\",\n            \"category\": \"Electronics\",\n            \"quantity\": 2,\n            \"internalReference\": \"REF-1008\",\n            \"inventoryStatus\": \"LOWSTOCK\",\n            \"rating\": 4\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/wishList/addProduct",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"wishList",
+								"addProduct"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtZWQtZ2ZAbGl2ZS5mciIsImxhc3ROYW1lIjoiYm91YWphamEiLCJleHAiOjE3NTY0NTg3MDUsImlhdCI6MTc1NjQ1NTEwNSwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJzY29wZSI6IlJPTEVfVVNFUiJ9.6_at_wzD3LUj6-gNEfZEEP4DcOTgXpsEm_Qnme7TgIUINhikFJDv5jqL2KsKWWRxhb9bBdGE4EoW_MCH33eboQ",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
