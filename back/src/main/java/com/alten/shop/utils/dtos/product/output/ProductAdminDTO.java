@@ -4,7 +4,7 @@ import jakarta.validation.constraints.*;
 
 import java.time.Instant;
 
-public record ProductResponseAdminDTO(
+public record ProductAdminDTO(
 
         @NotNull(message = "Id is required")
         @Positive(message = "ID must be a positive number")

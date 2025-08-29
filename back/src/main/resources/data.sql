@@ -57,12 +57,12 @@ INSERT IGNORE INTO products (id, code, name, description, image, price, category
 
 
 -- 6. LIENS MANY-TO-MANY PANIER_PRODUCTS
-INSERT INTO panier_products (panier_id, product_id) VALUES
-(1, 1000),
-(1, 1003),
-(1, 1007),
-(2, 1001),
-(2, 1004);
+INSERT INTO panier_products (panier_id, product_id, quantity) VALUES
+(1, 1000, 1),
+(1, 1003, 1),
+(1, 1007, 1),
+(2, 1001, 1),
+(2, 1004, 1);
 
 -- 7. LIENS MANY-TO-MANY ORDER_PRODUCTS
 INSERT INTO order_products (order_id, product_id) VALUES
