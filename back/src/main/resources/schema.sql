@@ -65,9 +65,10 @@ CREATE TABLE IF NOT EXISTS order_products (
 
 -- Table d'association Many-to-Many entre paniers et produits
 CREATE TABLE IF NOT EXISTS panier_products (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
     panier_id BIGINT NOT NULL,
     product_id BIGINT NOT NULL,
-    PRIMARY KEY (panier_id, product_id),
+    quantity INT NOT NULL DEFAULT 1,
     FOREIGN KEY (panier_id) REFERENCES paniers(id) ON DELETE CASCADE,
     FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
 );
@@ -76,9 +77,9 @@ CREATE TABLE IF NOT EXISTS panier_products (
 
 -- Table d'association Many-to-Many entre wish_lists et produits
 CREATE TABLE IF NOT EXISTS wishlist_products (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
     wishlist_id BIGINT NOT NULL,
     product_id BIGINT NOT NULL,
-    PRIMARY KEY (wishlist_id, product_id),
     FOREIGN KEY (wishlist_id) REFERENCES wish_lists(id) ON DELETE CASCADE,
     FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
 );
