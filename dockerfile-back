@@ -1,23 +1,20 @@
-# Phase de Build avec Java 21
-FROM maven:3.8-eclipse-temurin-21 AS build
-
-WORKDIR /app
-
-COPY back/pom.xml .
-
-RUN mvn dependency:go-offline
-
-COPY back/src ./src
-
-RUN mvn clean package -DskipTests
-
-# Phase Execution avec Java 21
 FROM eclipse-temurin:21-jdk-jammy
 
 WORKDIR /app
 
-COPY --from=build /app/target/*.jar app.jar
+# Copier le wrapper Maven
+COPY back/mvnw .
+COPY back/.mvn .mvn
 
+# Copier pom.xml et télécharger les dépendances
+COPY back/pom.xml .
+RUN ./mvnw dependency:go-offline
+
+# Copier le code source
+COPY back/src ./src
+
+# Exposer le port
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Lancer avec Spring Boot DevTools pour hot reload et compilation automatique
+ENTRYPOINT ["./mvnw", "spring-boot:run", "-Dspring-boot.run.fork=false", "-Dspring.devtools.restart.poll-interval=1000"]
