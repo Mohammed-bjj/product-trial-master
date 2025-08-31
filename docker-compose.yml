@@ -16,7 +16,7 @@ services:
   back_app:
     build:
       context: .
-      dockerfile: dockerfile-back-dev
+      dockerfile: dockerfile-back
     ports:
       - "8080:8080"
     depends_on:
@@ -32,6 +32,22 @@ services:
     networks:
       - app-network
     restart: on-failure
+
+  front_app:
+    build:
+      context: .
+      dockerfile: dockerfile-front
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./front:/usr/src/app
+      - /usr/src/app/node_modules
+
+    environment:
+      - NODE_ENV=development
+      - API_URL=http://localhost:8080
+    networks:
+      - app-network
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
