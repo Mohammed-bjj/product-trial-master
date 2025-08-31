@@ -57,11 +57,14 @@ public class ConfigSecurity {
                                  "/swagger-ui.html",
                                 "/favicon.ico",
                                  "/v3/api-docs/**",
+                                 "/api/v3/api-docs/**",
+                                 "/api/v3/api-docs/swagger-config",
                                  "/swagger-resources/**",
                                  "/webjars/**",
-                                "/account/login",
-                                "/account/register",
-                                "/products/search").permitAll()
+                                "/api/account/login",
+                                "/api/account/register",
+                                "/api/products/search"
+                        ).permitAll()
                         .anyRequest().authenticated()
                 )
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
