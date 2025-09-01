@@ -27,3 +27,5 @@ back/!**/src/test/**/target/
 
 
 
+.angular/cache/
+.angular_backup/
