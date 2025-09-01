@@ -7,7 +7,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { MessageModule } from 'primeng/message';
-import { AuthService, RegisterRequest } from '../../../services/auth.service';
+import { AuthService, RegisterRequest } from '../../auth/data-access/auth.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -53,7 +53,7 @@ export class SignUpComponent {
       next: () => {
         this.successMessage = 'Compte créé avec succès ! Vous pouvez maintenant vous connecter.';
         setTimeout(() => {
-          this.router.navigate(['/sign-in']);
+          this.router.navigate(['/account/sign-in']);
         }, 2000);
       },
       error: () => {

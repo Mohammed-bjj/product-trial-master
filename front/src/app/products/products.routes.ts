@@ -1,13 +1,21 @@
 import { Routes } from "@angular/router";
-import { adminGuard } from "../shared/guards/admin.guard";
-import { ProductRouterComponent } from "./features/product-router/product-router.component";
+import { adminGuard } from "../shared/core/guards/admin.guard";
+import { ProductListComponent } from "./features/product-list/admin/product-list.component";
+import { UserProductViewComponent } from "./features/product-list/user/user-product-view.component";
+
+
 
 
 export const PRODUCTS_ROUTES: Routes = [
-	{
-		path: "list",
-		component: ProductRouterComponent
-	},
-
-	{ path: "**", redirectTo: "list" },
+  {
+    path: "admin",
+    component: ProductListComponent,
+    canActivate: [adminGuard]
+  },
+  {
+    path: "list", 
+    component: UserProductViewComponent
+  },
+  { path: "", redirectTo: "list", pathMatch: "full" },
+  { path: "**", redirectTo: "list" }
 ];

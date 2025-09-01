@@ -5,7 +5,7 @@ import { TableModule } from 'primeng/table';
 import { CardModule } from 'primeng/card';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
-import { CartService } from './data-access/cart.service';
+import { CartService } from '../data-access/cart.service';
 
 @Component({
   selector: 'app-cart',

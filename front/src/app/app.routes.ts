@@ -1,10 +1,6 @@
 import { Routes } from "@angular/router";
 import { HomeComponent } from "./shared/features/home/home.component";
-import { SignInComponent } from "./shared/features/auth/sign-in/sign-in.component";
-import { SignUpComponent } from "./shared/features/auth/sign-up/sign-up.component";
-import { CartComponent } from "./paniers/cart.component";
-import { WishlistComponent } from "./wishList/wishlist.component";
-import { ContactComponent } from "./contact/contact.component";
+
 
 export const APP_ROUTES: Routes = [
   {
@@ -12,30 +8,25 @@ export const APP_ROUTES: Routes = [
     component: HomeComponent,
   },
   {
-    path: "sign-in",
-    component: SignInComponent,
-  },
-  {
-    path: "sign-up",
-    component: SignUpComponent,
-  },
-  {
     path: "products",
-    loadChildren: () =>
-
-      import("./products/products.routes").then((m) => m.PRODUCTS_ROUTES)
+    loadChildren: () => import("./products/products.routes").then((m) => m.PRODUCTS_ROUTES)
   },
   {
     path: "cart",
-    component: CartComponent,
+    loadChildren: () => import("./paniers/paniers.routes").then((m) => m.PANIERS_ROUTES),
   },
   {
     path: "wishlist",
-    component: WishlistComponent,
+    loadChildren: () => import("./wishList/wishList.routes").then((m) => m.PANIERS_ROUTES),
   },
   {
     path: "contact",
-    component: ContactComponent,
+    loadChildren: () => import("./contact/contacts.routes").then((m) => m.CONTACT_ROUTES),
   },
+  {
+    path: "account",
+    loadChildren: () => import("./shared/features/auth/auth.routes").then((m) => m.AUTH_ROUTES),
+  },
+
   { path: "", redirectTo: "home", pathMatch: "full" },
 ];

@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
-import { ThemeService } from '../../services/theme.service';
+import { ThemeService } from './data-access/theme.service';
 
 @Component({
   selector: 'app-theme-toggle',

@@ -6,7 +6,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ButtonModule } from 'primeng/button';
 import { MessageModule } from 'primeng/message';
-import { AuthService } from '../shared/services/auth.service';
+import { AuthService } from  '../../shared/features/auth/data-access/auth.service';
 
 
 @Component({

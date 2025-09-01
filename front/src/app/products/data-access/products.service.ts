@@ -3,7 +3,7 @@ import { Product } from "./product.model";
 import { HttpClient } from "@angular/common/http";
 import { catchError, Observable, of, tap, map } from "rxjs";
 import { environment } from "../../../environments/environment";
-import { AuthService } from "../../shared/services/auth.service";
+import { AuthService } from "../../shared/features/auth/data-access/auth.service";
 
 interface ProductResponse {
     content: Product[];

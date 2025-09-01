@@ -6,7 +6,7 @@ import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../features/auth/data-access/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -40,16 +40,16 @@ export class HeaderComponent {
     if (this.isAuthenticated  && !this.isAdmin) {
 
     } else {
-      this.router.navigate(['/sign-in']);
+      this.router.navigate(['/account/sign-in']);
     }
   }
 
   onLogin() {
-    this.router.navigate(['/sign-in']);
+    this.router.navigate(['/account/sign-in']);
   }
 
   onRegister() {
-    this.router.navigate(['/sign-up']);
+    this.router.navigate(['/account/sign-up']);
   }
 
   onLogout() {

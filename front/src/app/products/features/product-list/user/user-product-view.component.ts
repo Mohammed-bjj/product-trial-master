@@ -8,7 +8,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { CardModule } from 'primeng/card';
 import { CartService } from '../../../../paniers/data-access/cart.service';
 import { WishlistService } from '../../../../wishList/data-access/wishlist.service';
-import { AuthService } from '../../../../shared/services/auth.service';
+import { AuthService } from '../../../../shared/features/auth/data-access/auth.service';
 
 @Component({
   selector: "app-user-product-list",

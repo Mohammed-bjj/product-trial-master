@@ -1,7 +1,7 @@
 import { Component, computed, inject } from "@angular/core";
 import { MenuItem } from "primeng/api";
 import { PanelMenuModule } from 'primeng/panelmenu';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../features/auth/data-access/auth.service';
 
 @Component({
   selector: "app-panel-menu",
@@ -43,7 +43,7 @@ export class PanelMenuComponent {
           {
             label: 'Contact',
             icon: 'pi pi-envelope',
-            routerLink: ['/contact']
+            routerLink: ['/contact/form']
           },
           {
             label: 'Mon Panier',
@@ -60,19 +60,19 @@ export class PanelMenuComponent {
     } else {
       baseItems.push(
           {
-                      label: 'Contact',
-                      icon: 'pi pi-envelope',
-                      routerLink: ['/contact']
+            label: 'Contact',
+            icon: 'pi pi-envelope',
+            routerLink: ['/contact/form']
           },
         {
           label: 'Connexion',
           icon: 'pi pi-sign-in',
-          routerLink: ['/sign-in']
+          routerLink: ['/account/sign-in']
         },
         {
           label: 'Inscription',
           icon: 'pi pi-user-plus',
-          routerLink: ['/sign-up']
+          routerLink: ['/account/sign-up']
         }
       );
     }

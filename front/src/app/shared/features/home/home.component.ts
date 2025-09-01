@@ -6,7 +6,7 @@ import { ChartModule } from "primeng/chart";
 import { CommonModule } from "@angular/common";
 import { UserProductViewComponent } from "../../../products/features/product-list/user/user-product-view.component";
 import { ProductListComponent } from "../../../products/features/product-list/admin/product-list.component";
-import { AuthService } from "../../services/auth.service";
+import { AuthService } from "../../../shared/features/auth/data-access/auth.service";
 import { ProductsService } from "../../../products/data-access/products.service";
 
 @Component({

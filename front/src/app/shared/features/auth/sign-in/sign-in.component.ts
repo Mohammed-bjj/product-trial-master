@@ -7,7 +7,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { MessageModule } from 'primeng/message';
-import { AuthService, LoginRequest } from '../../../services/auth.service';;
+import { AuthService, LoginRequest } from '../../auth/data-access/auth.service';;
 
 @Component({
   selector: 'app-sign-in',
@@ -49,7 +49,7 @@ export class SignInComponent {
       next: () => {
         this.router.navigate(['/home']);
       },
-      error: () => {
+      error: (err) => {
         this.errorMessage = 'Email ou mot de passe incorrect';
         this.isLoading = false;
       },

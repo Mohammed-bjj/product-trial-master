@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { CardModule } from 'primeng/card';
-import { WishlistService } from './data-access/wishlist.service';
-import { CartService } from '../paniers/data-access/cart.service';
-import { Product } from '../products/data-access/product.model';
+import { WishlistService } from '../data-access/wishlist.service';
+import { CartService } from '../../paniers/data-access/cart.service';
+import { Product } from '../../products/data-access/product.model';
 
 @Component({
   selector: 'app-wishlist',
