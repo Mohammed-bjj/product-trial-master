@@ -148,3 +148,12 @@ La partie front-end a bien avancé, notamment :
 Pour lancer l'application facilement, il faut installer Docker et Docker Compose, puis l'exécuter avec une seule commande :
      -  docker-compose up --build  pour démarrer
      -  docker-compose down -v pour arreter
+
+
+Compte Admin :
+ - email : admin@admin.com
+ - password : figuig
+
+Compte User :
+- email : user1@example.com
+- password : figuig
