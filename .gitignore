@@ -24,11 +24,6 @@ back/!**/src/test/**/target/
 
 
 
-
-
-
-.angular/cache/
-.angular_backup/
 /front/.angular_backup/
 /front/.angular/cache/
 *.pack
