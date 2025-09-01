@@ -63,7 +63,7 @@ class Product {
   rating: number;
   createdAt: number;
   updatedAt: number;
-}
+}   
 ```
 
 Le back-end créé doit pouvoir gérer les produits dans une base de données SQL/NoSQL ou dans un fichier json.
@@ -157,3 +157,19 @@ Compte Admin :
 Compte User :
 - email : user1@example.com
 - password : figuig
+
+
+Interfaces Admin  : 
+
+
+![Etat de stock](./stateStocke.png)
+![Gestion des produit](./gestion-produit.png)
+
+
+
+Interface User : 
+
+![List Produit](./list-product.png)
+![Gestion Panier](./gestion-panier.png)
+![Gestion mes Favoris](./gestion-wishlist.png)
+![Contact](./contact.png)
