@@ -9,7 +9,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   // Routes exclues de l'injection du token
   const excludedRoutes = [
     `${environment.apiBaseUrl}/products/search`,
-    `${environment.apiBaseUrl}/auth/login`,
+    `${environment.apiBaseUrl}/auth/token`,
     `${environment.apiBaseUrl}/auth/register`
   ];
   console.log('Auth Interceptor - Original Request:', req.url);
