@@ -6,7 +6,7 @@ import {
 import { Router, RouterModule, NavigationEnd } from "@angular/router";
 import { SplitterModule } from 'primeng/splitter';
 import { PanelMenuComponent } from "./shared/ui/panel-menu/panel-menu.component";
-import { HeaderComponent } from "./shared/ui/header/header.component";
+import { HeaderComponent } from "./shared/features/header/header.component";
 import { CommonModule } from '@angular/common';
 import { filter, map, startWith } from 'rxjs/operators';
 import { toSignal } from '@angular/core/rxjs-interop';

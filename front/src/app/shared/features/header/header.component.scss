@@ -181,9 +181,9 @@
 
 
 .cart-wrapper {
-  position: relative;
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 .cart-btn {
@@ -205,9 +205,7 @@
 }
 
 .cart-indicator {
-  position: absolute;
-  top: -6px;
-  right: -6px;
+  margin-left: 8px;
   background: linear-gradient(135deg, #dc3545, #ffc107);
   border-radius: 50%;
   min-width: 22px;
@@ -217,14 +215,11 @@
   justify-content: center;
   border: 2px solid var(--surface-0);
   box-shadow: 0 2px 8px rgba(220, 53, 69, 0.4);
-  animation: pulse 2s infinite;
-}
-
-.cart-count {
   color: white;
   font-size: 0.75rem;
   font-weight: 700;
   line-height: 1;
+  animation: pulse 2s infinite;
 }
 
 
