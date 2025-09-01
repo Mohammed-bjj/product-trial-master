@@ -35,7 +35,7 @@ export class PanelMenuComponent {
         {
           label: 'Produits',
           icon: 'pi pi-shopping-bag',
-          routerLink: ['/products/list']
+          routerLink: isAdmin ? ['/products/list-for-admin'] : ['/products/list-for-user'] 
         }
       );
       if (!isAdmin) {

@@ -8,12 +8,12 @@ import { UserProductViewComponent } from "./features/product-list/user/user-prod
 
 export const PRODUCTS_ROUTES: Routes = [
   {
-    path: "admin",
+    path: "list-for-admin",
     component: ProductListComponent,
     canActivate: [adminGuard]
   },
   {
-    path: "list", 
+    path: "list-for-user", 
     component: UserProductViewComponent
   },
   { path: "", redirectTo: "list", pathMatch: "full" },

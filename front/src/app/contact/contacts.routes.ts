@@ -1,12 +1,14 @@
 import { Routes } from "@angular/router";
 import { ContactComponent } from "./features/contact.component";
+import { authGuard } from "../shared/core/guards/admin.guard";
 
 
 
 export const CONTACT_ROUTES: Routes = [
   {
     path: "form", 
-    component:  ContactComponent 
+    component:  ContactComponent,
+    canActivate: [authGuard]
   },
   { path: "", redirectTo: "list", pathMatch: "full" },
   { path: "**", redirectTo: "list" }
