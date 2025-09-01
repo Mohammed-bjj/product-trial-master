@@ -1,7 +1,7 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../../products/data-access/product.model';
-import { AuthService } from './auth.service';
+import { AuthService } from '../../shared/services/auth.service';
 import { Observable, of } from 'rxjs';
 
 export interface CartItem {

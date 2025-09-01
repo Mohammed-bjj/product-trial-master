@@ -6,7 +6,8 @@ import { ButtonModule } from "primeng/button";
 import { TagModule } from 'primeng/tag';
 import { TooltipModule } from 'primeng/tooltip';
 import { CardModule } from 'primeng/card';
-import { CartService } from '@app/shared/services/cart.service';
+import { CartService } from '../../../../paniers/data-access/cart.service';
+import { WishlistService } from '../../../../wishList/data-access/wishlist.service';
 import { AuthService } from '../../../../shared/services/auth.service';
 
 @Component({
@@ -20,6 +21,7 @@ export class UserProductViewComponent implements OnInit {
   private readonly productsService = inject(ProductsService);
   private readonly authService = inject(AuthService);
   private readonly cartService = inject(CartService);
+  private readonly wishlistService = inject(WishlistService);
 
   public readonly products = this.productsService.products;
   public readonly isAuthenticated = this.authService.isAuthenticated;
@@ -43,5 +45,9 @@ export class UserProductViewComponent implements OnInit {
 
   public onAddToCart(product: Product) {
     this.cartService.addToCart(product).subscribe();
+  }
+
+  public onAddToWishlist(product: Product) {
+    this.wishlistService.addToWishlist(product).subscribe();
   }
 }

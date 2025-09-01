@@ -3,10 +3,9 @@ import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { CardModule } from 'primeng/card';
-import { WishlistService } from '../shared/services/wishlist.service';
-import { CartService } from '../shared/services/cart.service';
+import { WishlistService } from './data-access/wishlist.service';
+import { CartService } from '../paniers/data-access/cart.service';
 import { Product } from '../products/data-access/product.model';
-import { MockDataHelper, MOCK_PRODUCTS } from '../shared/data/mock-data';
 
 @Component({
   selector: 'app-wishlist',
@@ -22,7 +21,7 @@ export class WishlistComponent {
   public readonly wishlistItems = this.wishlistService.wishlistItems;
 
   public removeFromWishlist(productId: number): void {
-    this.wishlistService.removeFromWishlist(productId);
+    this.wishlistService.removeFromWishlist(productId).subscribe();
   }
 
   public addToCart(product: Product): void {
@@ -30,22 +29,7 @@ export class WishlistComponent {
   }
 
   public clearWishlist(): void {
-    this.wishlistService.clearWishlist();
+    this.wishlistService.clearWishlist().subscribe();
   }
 
-  // Méthodes de test avec données fictives
-  public loadTestData(): void {
-    MockDataHelper.initializeWishlistWithMockData(this.wishlistService);
-  }
-
-  public addRandomProduct(): void {
-    const randomProduct = MockDataHelper.getRandomProduct();
-    this.wishlistService.addToWishlist(randomProduct);
-  }
-
-  public addAllProducts(): void {
-    MOCK_PRODUCTS.forEach(product => {
-      this.wishlistService.addToWishlist(product);
-    });
-  }
 }

@@ -87,7 +87,7 @@ public class WishListRestAPI {
             @ApiResponse(responseCode = "500", description = "Internal Server Error"),
             @ApiResponse(responseCode = "400", description = "Bad Request")
     })
-    @RequestMapping("/getWishList")
+    @GetMapping("/getWishList")
     @PreAuthorize("hasAuthority('SCOPE_ROLE_USER')")
     public ResponseEntity<List<WishListResponseDTO>> getWishList() {
         UserEntity user = accountService.getProfile(SecurityContextHolder.getContext())

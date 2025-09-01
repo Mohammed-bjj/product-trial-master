@@ -1,5 +1,5 @@
 import { Component, OnInit, inject, signal } from "@angular/core";
-import { Product } from "app/products/data-access/product.model";
+import { Product, ProductFormData } from "app/products/data-access/product.model";
 import { ProductsService } from "app/products/data-access/products.service";
 import { ProductFormComponent } from "app/products/ui/product-form/product-form.component";
 import { ButtonModule } from "primeng/button";
@@ -46,6 +46,8 @@ export class ProductListComponent implements OnInit {
   private readonly messageService = inject(MessageService);
 
   public readonly products = this.productsService.products;
+  public readonly productResponse = this.productsService.productResponse;
+
 
 
   public selectedProducts: Product[] = [];
@@ -56,6 +58,14 @@ export class ProductListComponent implements OnInit {
   ngOnInit() {
     this.productsService.get().subscribe();
   }
+
+
+    loadProducts(event: any) {
+        console.log("test med : ",event);
+        const page = event.first / event.rows;
+        const size = event.rows;
+        this.productsService.get(page, size).subscribe();
+    }
 
   public onCreate() {
     this.isCreation = true;
@@ -119,9 +129,15 @@ export class ProductListComponent implements OnInit {
 
 
 
-  public onSave(product: Product) {
+  public onSave(formData: ProductFormData) {
     if (this.isCreation) {
-      this.productsService.create(product).subscribe({
+      const newProduct: Product = {
+        ...formData,
+        id: 0,
+        createdAt: Date.now(),
+        updatedAt: Date.now()
+      };
+      this.productsService.create(newProduct).subscribe({
         next: () => {
           this.messageService.add({
             severity: 'success',
@@ -139,7 +155,13 @@ export class ProductListComponent implements OnInit {
         }
       });
     } else {
-      this.productsService.update(product).subscribe({
+      const updatedProduct: Product = {
+        ...formData,
+        id: this.editedProduct().id,
+        createdAt: this.editedProduct().createdAt,
+        updatedAt: Date.now()
+      };
+      this.productsService.update(updatedProduct).subscribe({
         next: () => {
           this.messageService.add({
             severity: 'success',

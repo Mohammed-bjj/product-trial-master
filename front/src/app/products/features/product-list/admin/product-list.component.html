@@ -34,14 +34,17 @@
 
     <p-table
             [value]="products()"
+            [lazy]="true"
             [paginator]="true"
             [rows]="10"
+            [totalRecords]="productResponse()?.page?.totalElements || 0"
             [rowsPerPageOptions]="[5, 10, 20, 50]"
             [(selection)]="selectedProducts"
             dataKey="id"
             styleClass="admin-table"
             [scrollable]="true"
             scrollHeight="60vh"
+            (onLazyLoad)="loadProducts($event)"
             #dt>
 
         <ng-template pTemplate="header">
@@ -59,6 +62,8 @@
                 <th pSortableColumn="quantity">Stock <p-sortIcon field="quantity"></p-sortIcon></th>
                 <th pSortableColumn="inventoryStatus">Statut <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
                 <th pSortableColumn="rating">Note <p-sortIcon field="rating"></p-sortIcon></th>
+                <th pSortableColumn="createdAt">Créé le <p-sortIcon field="createdAt"></p-sortIcon></th>
+                <th pSortableColumn="updatedAt">Modifié le <p-sortIcon field="updatedAt"></p-sortIcon></th>
                 <th>Actions</th>
             </tr>
         </ng-template>
@@ -98,6 +103,8 @@
                         <span>({{ product.rating }})</span>
                     </div>
                 </td>
+                <td>{{ product.createdAt | date:'dd/MM/yyyy HH:mm' }}</td>
+                <td>{{ product.updatedAt | date:'dd/MM/yyyy HH:mm' }}</td>
                 <td class="actions">
                     <p-button icon="pi pi-pencil" severity="info" [text]="true" [rounded]="true"
                              (onClick)="onUpdate(product)" />

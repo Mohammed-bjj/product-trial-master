@@ -1,11 +1,5 @@
 <div class="cart-container">
-  <!-- Boutons de test -->
-  <div class="test-controls" style="margin-bottom: 1rem; padding: 1rem; border: 1px dashed #ccc; border-radius: 4px;">
-    <h4>Tests du panier :</h4>
-    <p-button label="Charger données test" (onClick)="loadTestData()" severity="info" [outlined]="true" [style]="{'margin-right': '0.5rem'}"></p-button>
-    <p-button label="Ajouter produit aléatoire" (onClick)="addRandomProduct()" severity="secondary" [outlined]="true" [style]="{'margin-right': '0.5rem'}"></p-button>
-    <p-button label="Ajouter tous les produits" (onClick)="addAllProducts()" severity="warning" [outlined]="true"></p-button>
-  </div>
+
 
   <p-card header="Mon Panier">
     <div *ngIf="cartItems().length === 0" class="empty-cart">
