@@ -6,6 +6,7 @@ import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -16,16 +17,31 @@ import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
 })
 export class HeaderComponent {
   private readonly router = inject(Router);
-  
+  private readonly authService = inject(AuthService);
+
   @Input() title: string = '';
-  
+
+  get isAuthenticated() {
+    return this.authService.isAuthenticated();
+  }
+
+  get isAdmin() {
+    return this.authService.isAdmin();
+  }
+
+  get getUsername(){
+      return this.authService.currentUser()?.username ;
+  }
+
   // Valeurs temporaires pour les tests
   cartItemCount = 3;
-  isAuthenticated = false;
-  isAdmin = false;
 
   onCartClick() {
-    console.log('Ouverture du panier');
+    if (this.isAuthenticated  && !this.isAdmin) {
+
+    } else {
+      this.router.navigate(['/sign-in']);
+    }
   }
 
   onLogin() {
@@ -37,7 +53,7 @@ export class HeaderComponent {
   }
 
   onLogout() {
-    console.log('Déconnexion');
-    this.isAuthenticated = false;
+    this.authService.logout();
+    this.router.navigate(['/home']);
   }
 }

@@ -161,7 +161,7 @@ export class ProductListComponent implements OnInit {
 
   public onDeleteSelected() {
     if (this.selectedProducts.length === 0) return;
-    
+
     this.confirmationService.confirm({
       message: `Êtes-vous sûr de vouloir supprimer ${this.selectedProducts.length} produit(s) ?`,
       header: 'Suppression en masse',

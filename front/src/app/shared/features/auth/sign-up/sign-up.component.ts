@@ -30,8 +30,8 @@ export class SignUpComponent {
   private readonly router = inject(Router);
 
   userData: RegisterRequest = {
-    username: '',
-    firstname: '',
+    lastName: '',
+    firstName: '',
     email: '',
     password: ''
   };
@@ -68,8 +68,8 @@ export class SignUpComponent {
 
   private isFormValid(): boolean {
     return !!(
-      this.userData.username &&
-      this.userData.firstname &&
+      this.userData.lastName &&
+      this.userData.firstName &&
       this.userData.email &&
       this.userData.password &&
       this.userData.password.length >= 6

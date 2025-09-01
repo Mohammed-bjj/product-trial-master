@@ -6,6 +6,7 @@
 		"description": "Product Description",
 		"image": "bamboo-watch.jpg",
 		"price": 65,
+        "quantity": 20,
 		"category": "Accessories",
 		"createdAt": 1718114215761,
 		"updatedAt": 1718114215761,
@@ -25,6 +26,7 @@
 		"createdAt": 1718114215761,
 		"updatedAt": 1718114215761,
 		"shellId": 15,
+      "quantity": 20,
 		"internalReference": "REF-123-456",
 		"inventoryStatus": "INSTOCK",
 		"rating": 4
@@ -42,6 +44,7 @@
 		"createdAt": 1718114215761,
 		"updatedAt": 1718114215761,
 		"shellId": 15,
+      "quantity": 3,
 		"internalReference": "REF-123-456",
 		"inventoryStatus": "LOWSTOCK",
 		"rating": 3
@@ -57,6 +60,7 @@
 		"createdAt": 1718114215761,
 		"updatedAt": 1718114215761,
 		"shellId": 15,
+      "quantity": 20,
 		"internalReference": "REF-123-456",
 		"inventoryStatus": "INSTOCK",
 		"rating": 5
@@ -72,6 +76,7 @@
 		"createdAt": 1718114215761,
 		"updatedAt": 1718114215761,
 		"shellId": 15,
+      "quantity": 20,
 		"internalReference": "REF-123-456",
 		"inventoryStatus": "INSTOCK",
 		"rating": 4
@@ -87,6 +92,7 @@
 		"createdAt": 1718114215761,
 		"updatedAt": 1718114215761,
 		"shellId": 15,
+      "quantity": 0,
 		"internalReference": "REF-123-456",
 		"inventoryStatus": "OUTOFSTOCK",
 		"rating": 4
@@ -102,6 +108,7 @@
 		"createdAt": 1718114215761,
 		"updatedAt": 1718114215761,
 		"shellId": 15,
+      "quantity": 2,
 		"internalReference": "REF-123-456",
 		"inventoryStatus": "LOWSTOCK",
 		"rating": 3
@@ -117,6 +124,7 @@
 		"createdAt": 1718114215761,
 		"updatedAt": 1718114215761,
 		"shellId": 15,
+      "quantity": 20,
 		"internalReference": "REF-123-456",
 		"inventoryStatus": "INSTOCK",
 		"rating": 5
@@ -132,6 +140,7 @@
 		"createdAt": 1718114215761,
 		"updatedAt": 1718114215761,
 		"shellId": 15,
+      "quantity": 2,
 		"internalReference": "REF-123-456",
 		"inventoryStatus": "LOWSTOCK",
 		"rating": 4
@@ -147,6 +156,7 @@
 		"createdAt": 1718114215761,
 		"updatedAt": 1718114215761,
 		"shellId": 15,
+      "quantity": 20,
 		"internalReference": "REF-123-456",
 		"inventoryStatus": "INSTOCK",
 		"rating": 3
@@ -162,6 +172,7 @@
 		"createdAt": 1718114215761,
 		"updatedAt": 1718114215761,
 		"shellId": 15,
+      "quantity": 0,
 		"internalReference": "REF-123-456",
 		"inventoryStatus": "OUTOFSTOCK",
 		"rating": 4
@@ -177,6 +188,7 @@
 		"createdAt": 1718114215761,
 		"updatedAt": 1718114215761,
 		"shellId": 15,
+      "quantity": 20,
 		"internalReference": "REF-123-456",
 		"inventoryStatus": "INSTOCK",
 		"rating": 4
@@ -192,6 +204,7 @@
 		"createdAt": 1718114215761,
 		"updatedAt": 1718114215761,
 		"shellId": 15,
+      "quantity": 20,
 		"internalReference": "REF-123-456",
 		"inventoryStatus": "INSTOCK",
 		"rating": 5
@@ -207,6 +220,7 @@
 		"createdAt": 1718114215761,
 		"updatedAt": 1718114215761,
 		"shellId": 15,
+      "quantity": 0,
 		"internalReference": "REF-123-456",
 		"inventoryStatus": "OUTOFSTOCK",
 		"rating": 3
@@ -222,6 +236,7 @@
 		"createdAt": 1718114215761,
 		"updatedAt": 1718114215761,
 		"shellId": 15,
+      "quantity": 2,
 		"internalReference": "REF-123-456",
 		"inventoryStatus": "LOWSTOCK",
 		"rating": 5
@@ -237,6 +252,7 @@
 		"createdAt": 1718114215761,
 		"updatedAt": 1718114215761,
 		"shellId": 15,
+      "quantity": 20,
 		"internalReference": "REF-123-456",
 		"inventoryStatus": "INSTOCK",
 		"rating": 4
@@ -252,6 +268,7 @@
 		"createdAt": 1718114215761,
 		"updatedAt": 1718114215761,
 		"shellId": 15,
+      "quantity": 20,
 		"internalReference": "REF-123-456",
 		"inventoryStatus": "INSTOCK",
 		"rating": 3
@@ -267,6 +284,7 @@
 		"createdAt": 1718114215761,
 		"updatedAt": 1718114215761,
 		"shellId": 15,
+      "quantity": 20,
 		"internalReference": "REF-123-456",
 		"inventoryStatus": "INSTOCK",
 		"rating": 4
@@ -282,6 +300,7 @@
 		"createdAt": 1718114215761,
 		"updatedAt": 1718114215761,
 		"shellId": 15,
+      "quantity": 20,
 		"internalReference": "REF-123-456",
 		"inventoryStatus": "INSTOCK",
 		"rating": 5
@@ -297,6 +316,7 @@
 		"createdAt": 1718114215761,
 		"updatedAt": 1718114215761,
 		"shellId": 15,
+      "quantity": 20,
 		"internalReference": "REF-123-456",
 		"inventoryStatus": "INSTOCK",
 		"rating": 4
@@ -312,6 +332,7 @@
 		"createdAt": 1718114215761,
 		"updatedAt": 1718114215761,
 		"shellId": 15,
+      "quantity": 0,
 		"internalReference": "REF-123-456",
 		"inventoryStatus": "OUTOFSTOCK",
 		"rating": 4
@@ -327,6 +348,7 @@
 		"createdAt": 1718114215761,
 		"updatedAt": 1718114215761,
 		"shellId": 15,
+      "quantity": 2,
 		"internalReference": "REF-123-456",
 		"inventoryStatus": "LOWSTOCK",
 		"rating": 3
@@ -342,6 +364,7 @@
 		"createdAt": 1718114215761,
 		"updatedAt": 1718114215761,
 		"shellId": 15,
+      "quantity": 20,
 		"internalReference": "REF-123-456",
 		"inventoryStatus": "INSTOCK",
 		"rating": 4
@@ -357,6 +380,7 @@
 		"createdAt": 1718114215761,
 		"updatedAt": 1718114215761,
 		"shellId": 15,
+      "quantity": 2,
 		"internalReference": "REF-123-456",
 		"inventoryStatus": "LOWSTOCK",
 		"rating": 5
@@ -372,6 +396,7 @@
 		"createdAt": 1718114215761,
 		"updatedAt": 1718114215761,
 		"shellId": 15,
+      "quantity": 20,
 		"internalReference": "REF-123-456",
 		"inventoryStatus": "INSTOCK",
 		"rating": 4
@@ -387,6 +412,7 @@
 		"createdAt": 1718114215761,
 		"updatedAt": 1718114215761,
 		"shellId": 15,
+      "quantity": 20,
 		"internalReference": "REF-123-456",
 		"inventoryStatus": "INSTOCK",
 		"rating": 4
@@ -402,6 +428,7 @@
 		"createdAt": 1718114215761,
 		"updatedAt": 1718114215761,
 		"shellId": 15,
+      "quantity": 2,
 		"internalReference": "REF-123-456",
 		"inventoryStatus": "LOWSTOCK",
 		"rating": 3
@@ -417,6 +444,7 @@
 		"createdAt": 1718114215761,
 		"updatedAt": 1718114215761,
 		"shellId": 15,
+      "quantity": 20,
 		"internalReference": "REF-123-456",
 		"inventoryStatus": "INSTOCK",
 		"rating": 3
@@ -432,6 +460,7 @@
 		"createdAt": 1718114215761,
 		"updatedAt": 1718114215761,
 		"shellId": 15,
+      "quantity": 20,
 		"internalReference": "REF-123-456",
 		"inventoryStatus": "INSTOCK",
 		"rating": 5
@@ -447,6 +476,7 @@
 		"createdAt": 1718114215761,
 		"updatedAt": 1718114215761,
 		"shellId": 15,
+      "quantity": 20,
 		"internalReference": "REF-123-456",
 		"inventoryStatus": "INSTOCK",
 		"rating": 8

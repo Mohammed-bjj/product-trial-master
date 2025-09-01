@@ -12,36 +12,33 @@
 
     <nav class="header-nav">
       <div class="nav-actions">
+
+          <!-- Section E-commerce visible uniquement pour l'admin -->
+          @if(!isAdmin){
+          <div  class="commerce-section">
+              <div *ngIf="!isAdmin" class="cart-wrapper" pTooltip="Mon panier ({{ cartItemCount }} articles)" tooltipPosition="bottom">
+                  <p-button
+                          icon="pi pi-shopping-cart"
+                          [text]="true"
+                          [rounded]="true"
+                          class="cart-btn"
+                          [class.has-items]="cartItemCount > 0"
+                          (onClick)="onCartClick()" />
+                  <span *ngIf="cartItemCount > 0" class="cart-indicator">{{ cartItemCount }}</span>
+              </div>
+          </div>
+          }
+
         <!-- Section Outils -->
         <div class="tools-section">
           <app-theme-toggle />
         </div>
 
-        <!-- Section E-commerce -->
-        <div *ngIf="isAuthenticated" class="commerce-section">
-          <div class="cart-wrapper" pTooltip="Mon panier ({{ cartItemCount }} articles)" tooltipPosition="bottom">
-            <p-button
-              icon="pi pi-shopping-cart"
-              [label]="cartItemCount > 0 ? cartItemCount.toString() : ''"
-              [text]="true"
-              [rounded]="true"
-              class="cart-btn"
-              [class.has-items]="cartItemCount > 0"
-              (onClick)="onCartClick()" />
-          </div>
-        </div>
+
 
         <!-- Section Authentification -->
         <div class="auth-section">
-          <!-- Badge Admin -->
-          <div *ngIf="isAdmin" class="admin-badge">
-            <p-button
-              label="ADMIN"
-              icon="pi pi-shield"
-              severity="warning"
-              size="small"
-              [raised]="true" />
-          </div>
+
 
           <!-- Utilisateur non connecté -->
           <div *ngIf="!isAuthenticated" class="guest-actions">
@@ -66,7 +63,7 @@
               <i class="pi pi-user"></i>
             </div>
             <div class="user-details">
-              <span class="username">Utilisateur</span>
+              <span class="username">{{ getUsername }}</span>
               <span class="user-role">{{ isAdmin ? 'Administrateur' : 'Utilisateur' }}</span>
             </div>
             <p-button

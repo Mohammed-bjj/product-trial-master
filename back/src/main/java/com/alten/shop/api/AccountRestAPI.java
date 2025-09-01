@@ -36,7 +36,7 @@ public class AccountRestAPI {
             @ApiResponse(responseCode = "500", description = "Internal Server Error"),
             @ApiResponse(responseCode = "400", description = "Bad Request")
     })
-    @PostMapping("/login")
+    @PostMapping("/token")
     public ResponseEntity<LoginResponseDTO> login(@Valid @RequestBody LoginRequestDTO loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.email(), loginRequest.password())
