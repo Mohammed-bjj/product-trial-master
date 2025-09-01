@@ -1,9 +1,201 @@
-.form-field {
-    display: flex;
-    flex-direction: column;
-    margin: 10px 0;
+.admin-products {
+  padding: 2rem;
+  background: var(--surface-0);
+  min-height: 100vh;
+}
 
-    .p-dropdown, .p-inputnumber {
-        width: 100%;
-    }
+.admin-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.admin-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #dc3545;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.admin-header .subtitle {
+  color: var(--text-color-secondary);
+  font-size: 1.1rem;
+  margin: 0.5rem 0 0 0;
+}
+
+:host ::ng-deep .admin-toolbar {
+  background: linear-gradient(135deg, var(--surface-50), var(--surface-100));
+  border: 1px solid var(--surface-200);
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+}
+
+:host ::ng-deep .admin-table {
+  background: var(--surface-0);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+:host ::ng-deep .admin-table .p-datatable-header {
+  background: linear-gradient(135deg, #dc3545, #ffc107);
+  color: white;
+  font-weight: 600;
+}
+
+:host ::ng-deep .admin-table .p-datatable-thead > tr > th {
+  background: linear-gradient(135deg, #dc3545, #ffc107);
+  color: white;
+  font-weight: 600;
+  border: none;
+  padding: 1rem;
+}
+
+:host ::ng-deep .admin-table .p-datatable-tbody > tr {
+  transition: all 0.3s ease;
+}
+
+:host ::ng-deep .admin-table .p-datatable-tbody > tr:hover {
+  background: var(--surface-50);
+  transform: scale(1.01);
+}
+
+:host ::ng-deep .admin-table .p-checkbox {
+  display: inline-block;
+}
+
+:host ::ng-deep .admin-table .p-checkbox .p-checkbox-box {
+  width: 20px;
+  height: 20px;
+}
+
+:host ::ng-deep .admin-table td:first-child {
+  text-align: center;
+  vertical-align: middle;
+}
+
+:host ::ng-deep .admin-table th:first-child {
+  text-align: center;
+  vertical-align: middle;
+}
+
+:host ::ng-deep .admin-table .p-datatable-scrollable-header {
+  background: linear-gradient(135deg, #dc3545, #ffc107);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+:host ::ng-deep .admin-table .p-datatable-scrollable-body {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+:host ::ng-deep .admin-table .p-datatable-scrollable-header th {
+  position: sticky;
+  top: 0;
+  background: linear-gradient(135deg, #dc3545, #ffc107);
+  z-index: 1;
+}
+
+.product-name {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.product-name strong {
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.product-name .description {
+  color: var(--text-color-secondary);
+  font-size: 0.875rem;
+}
+
+.category-badge {
+  background: var(--surface-100);
+  color: var(--text-color);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.price {
+  font-weight: 700;
+  color: #28a745;
+  font-size: 1.1rem;
+}
+
+.stock-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.stock-high {
+  background: #d4edda;
+  color: #155724;
+}
+
+.stock-low {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.stock-empty {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.rating .pi-star-fill {
+  color: #ddd;
+  font-size: 0.875rem;
+}
+
+.rating .pi-star-fill.active {
+  color: #ffc107;
+}
+
+.rating span {
+  font-size: 0.875rem;
+  color: var(--text-color-secondary);
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-color-secondary);
+}
+
+.empty-state i {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  color: var(--surface-400);
+}
+
+.empty-state h3 {
+  margin: 0 0 0.5rem 0;
+  color: var(--text-color);
+}
+
+.empty-state p {
+  margin: 0;
 }

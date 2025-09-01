@@ -1,0 +1,56 @@
+<div class="contact-container">
+  <p-card header="Contact">
+    <form (ngSubmit)="onSubmit()" #contactForm="ngForm">
+      <div class="field">
+        <label for="email">Email *</label>
+        <input 
+          pInputText 
+          id="email" 
+          name="email"
+          [(ngModel)]="email" 
+          required 
+          email
+          class="w-full"
+          [class.ng-invalid]="emailField.invalid && emailField.touched"
+          #emailField="ngModel">
+        <small class="p-error" *ngIf="emailField.invalid && emailField.touched">
+          Email requis et valide
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="message">Message *</label>
+        <textarea 
+          pInputTextarea 
+          id="message" 
+          name="message"
+          [(ngModel)]="message" 
+          required 
+          maxlength="300"
+          rows="5"
+          class="w-full"
+          [class.ng-invalid]="messageField.invalid && messageField.touched"
+          #messageField="ngModel"></textarea>
+        <small class="p-error" *ngIf="messageField.invalid && messageField.touched">
+          Message requis (max 300 caractères)
+        </small>
+        <small class="text-muted">{{ message.length }}/300 caractères</small>
+      </div>
+
+      <div class="field">
+        <p-button 
+          type="submit" 
+          label="Envoyer" 
+          icon="pi pi-send"
+          [disabled]="contactForm.invalid">
+        </p-button>
+      </div>
+    </form>
+
+    <p-message 
+      *ngIf="showSuccessMessage" 
+      severity="success" 
+      text="Demande de contact envoyée avec succès">
+    </p-message>
+  </p-card>
+</div>

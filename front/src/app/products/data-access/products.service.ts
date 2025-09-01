@@ -8,7 +8,7 @@ import { catchError, Observable, of, tap } from "rxjs";
 }) export class ProductsService {
 
     private readonly http = inject(HttpClient);
-    private readonly path = "/api/products";
+    private readonly path = "";
     
     private readonly _products = signal<Product[]>([]);
 
@@ -17,6 +17,7 @@ import { catchError, Observable, of, tap } from "rxjs";
     public get(): Observable<Product[]> {
         return this.http.get<Product[]>(this.path).pipe(
             catchError((error) => {
+                console.error('Failed to fetch products from API, loading from local JSON file.', error);
                 return this.http.get<Product[]>("assets/products.json");
             }),
             tap((products) => this._products.set(products)),

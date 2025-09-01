@@ -19,6 +19,7 @@ export class PanelMenuComponent {
 
   public readonly items = computed(() => {
     const isAuthenticated = this.authService.isAuthenticated();
+    const isAdmin = this.authService.isAdmin();
 
     const baseItems: MenuItem[] = [
       {
@@ -35,25 +36,34 @@ export class PanelMenuComponent {
           label: 'Produits',
           icon: 'pi pi-shopping-bag',
           routerLink: ['/products/list']
-        },
-        {
-          label: 'Contact',
-          icon: 'pi pi-envelope',
-          routerLink: ['/contact']
-        },
-        {
-          label: 'Mon Panier',
-          icon: 'pi pi-shopping-cart',
-          routerLink: ['/cart']
-        },
-        {
-          label: 'Mes Favoris',
-          icon: 'pi pi-heart',
-          routerLink: ['/wishlist']
         }
       );
+      if (!isAdmin) {
+        baseItems.push(
+          {
+            label: 'Contact',
+            icon: 'pi pi-envelope',
+            routerLink: ['/contact']
+          },
+          {
+            label: 'Mon Panier',
+            icon: 'pi pi-shopping-cart',
+            routerLink: ['/cart']
+          },
+          {
+            label: 'Mes Favoris',
+            icon: 'pi pi-heart',
+            routerLink: ['/wishlist']
+          }
+        );
+      }
     } else {
       baseItems.push(
+          {
+                      label: 'Contact',
+                      icon: 'pi pi-envelope',
+                      routerLink: ['/contact']
+          },
         {
           label: 'Connexion',
           icon: 'pi pi-sign-in',

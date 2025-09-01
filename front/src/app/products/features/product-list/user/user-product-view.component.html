@@ -1,0 +1,43 @@
+<div class="products-grid">
+    <div class="product-card" *ngFor="let product of products()">
+        <p-card>
+            <ng-template pTemplate="header">
+                <img src="/favicon.ico" [alt]="product.name" class="product-image" style="width: 100%; height: 200px; object-fit: cover;"/>
+            </ng-template>
+
+            <div class="product-content">
+                <h3 class="product-title">{{ product.name }}</h3>
+                <p class="product-description">{{ product.description }}</p>
+
+                <div class="product-details">
+                    <p-tag [value]="getStatusLabel(product.inventoryStatus)"
+                           [severity]="getStatusSeverity(product.inventoryStatus)">
+                    </p-tag>
+                    <span class="product-price">{{ product.price | currency:'EUR' }}</span>
+                </div>
+            </div>
+
+            <ng-template pTemplate="footer">
+                <div class="card-footer">
+                    <div class="button-group">
+                        <p-button
+                            icon="pi pi-shopping-cart"
+                            [label]="'Ajouter au panier'"
+                            [disabled]="!isAuthenticated() || product.inventoryStatus === 'OUTOFSTOCK'"
+                            (onClick)="onAddToCart(product)"
+                            [rounded]="true">
+                        </p-button>
+                        <p-button
+                            icon="pi pi-heart"
+                            [label]="'Favoris'"
+                            severity="secondary"
+                            [outlined]="true"
+                            [rounded]="true"
+                            [disabled]="!isAuthenticated() || product.inventoryStatus === 'OUTOFSTOCK'">
+                        </p-button>
+                    </div>
+                </div>
+            </ng-template>
+        </p-card>
+    </div>
+</div>
