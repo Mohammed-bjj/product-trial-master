@@ -1,12 +1,16 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject, tap } from 'rxjs';
+import { jwtDecode } from 'jwt-decode';
+
+
+import { environment } from "../../../environments/environment";
 
 export interface User {
-  id: string;
+  id?: string;
   email: string;
   username: string;
-  firstname: string;
+  firstname?: string;
   isAdmin: boolean;
 }
 
@@ -16,10 +20,14 @@ export interface LoginRequest {
 }
 
 export interface RegisterRequest {
-  username: string;
-  firstname: string;
+  lastName: string;
+  firstName: string;
   email: string;
   password: string;
+}
+
+export interface LoginResponse {
+  access_token: string;
 }
 
 @Injectable({
@@ -41,18 +49,33 @@ export class AuthService {
     this.loadFromStorage();
   }
 
-  login(credentials: LoginRequest): Observable<{ token: string; user: User }> {
-    return this.http.post<{ token: string; user: User }>('/api/token', credentials).pipe(
-      tap((response: { token: string; user: User }) => {
-        this._token.set(response.token);
-        this._currentUser.set(response.user);
+  login(credentials: LoginRequest): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${environment.apiBaseUrl}/account/token`, credentials).pipe(
+      tap((response: LoginResponse) => {
+        this._token.set(response.access_token);
+        this.decodedToken(response.access_token); 
         this.saveToStorage();
       })
     );
   }
 
+
+  // Correction de la signature de la fonction decodedToken
+  // et amélioration de la logique pour mettre à jour isAdmin
+  decodedToken(token: string): void {
+    const decodedToken: any = jwtDecode(token);
+    this._currentUser.set({
+      email: decodedToken.sub,
+      username: decodedToken.lastName,
+      isAdmin: decodedToken.scope === 'ROLE_ADMIN',
+      id: decodedToken.id,
+      firstname: decodedToken.firstName
+    });
+  }
+
+
   register(userData: RegisterRequest): Observable<User> {
-    return this.http.post<User>('/api/account', userData);
+    return this.http.post<User>(`${environment.apiBaseUrl}/account/register`, userData);
   }
 
   logout(): void {
@@ -67,26 +90,19 @@ export class AuthService {
 
   private loadFromStorage(): void {
     const token = localStorage.getItem('auth_token');
-    const user = localStorage.getItem('current_user');
-    
-    if (token && user) {
+    if (token) {
       this._token.set(token);
-      this._currentUser.set(JSON.parse(user));
     }
   }
 
   private saveToStorage(): void {
     const token = this._token();
-    const user = this._currentUser();
-    
-    if (token && user) {
+    if (token ) {
       localStorage.setItem('auth_token', token);
-      localStorage.setItem('current_user', JSON.stringify(user));
     }
   }
 
   private clearStorage(): void {
     localStorage.removeItem('auth_token');
-    localStorage.removeItem('current_user');
   }
 }

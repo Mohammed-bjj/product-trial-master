@@ -1,0 +1,44 @@
+.cart-container {
+  padding: 1rem;
+}
+
+.empty-cart {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}
+
+.cart-footer {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid #ddd;
+}
+
+.total-section h3 {
+  margin: 0;
+  color: #2c5aa0;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.test-controls {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  
+  h4 {
+    margin: 0 0 0.5rem 0;
+    color: #495057;
+    font-size: 0.9rem;
+  }
+  
+  p-button {
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+}

@@ -3,3 +3,12 @@
       Bienvenue sur {{ appTitle }}
   </p>
 </p-card>
+
+<div *ngIf="isAdmin()">
+  <p-card header="État du Stock" class="block m-2">
+    <p-chart type="pie" [data]="stockData()" [options]="chartOptions" width="400" height="400"></p-chart>
+  </p-card>
+</div>
+<ng-template #userView>
+  <app-user-product-list></app-user-product-list>
+</ng-template>
