@@ -60,8 +60,7 @@ export class AuthService {
   }
 
 
-  // Correction de la signature de la fonction decodedToken
-  // et amélioration de la logique pour mettre à jour isAdmin
+
   decodedToken(token: string): void {
     const decodedToken: any = jwtDecode(token);
     this._currentUser.set({

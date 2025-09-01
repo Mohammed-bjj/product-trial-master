@@ -62,7 +62,7 @@ public class ProductRestAPI {
             @ApiResponse(responseCode = "500", description = "Internal Server Error"),
             @ApiResponse(responseCode = "400", description = "Bad Request")
     })
-    @PatchMapping("/update/{id}")
+    @PatchMapping("admin/update/{id}")
     @PreAuthorize("hasAuthority('SCOPE_ROLE_ADMIN')")
     public ResponseEntity<ProductAdminDTO>  updateProduct(
             @PathVariable @Positive @NotNull(message = "ID is required")  Long id,
@@ -79,7 +79,7 @@ public class ProductRestAPI {
             @ApiResponse(responseCode = "500", description = "Internal Server Error"),
             @ApiResponse(responseCode = "400", description = "Bad Request")
     })
-    @GetMapping("/search/admin")
+    @GetMapping("/admin/search")
     @PreAuthorize("hasAuthority('SCOPE_ROLE_ADMIN')")
     public ResponseEntity<Page<ProductAdminDTO>> searchProductsForAdmin(
             @Valid ProductSearchRequestDTO searchRequest) {
@@ -95,7 +95,7 @@ public class ProductRestAPI {
             @ApiResponse(responseCode = "500", description = "Internal Server Error"),
             @ApiResponse(responseCode = "400", description = "Bad Request")
     })
-    @PostMapping("/newProduct")
+    @PostMapping("/admin/newProduct")
     @PreAuthorize("hasAuthority('SCOPE_ROLE_ADMIN')")
     public ResponseEntity<ProductAdminDTO> createProduct(@Valid @RequestBody ProductCreateRequestDTO productCreateRequestDTO) {
         ProductAdminDTO createdProduct = productService.saveProduct(productCreateRequestDTO);
@@ -109,7 +109,7 @@ public class ProductRestAPI {
             @ApiResponse(responseCode = "500", description = "Internal Server Error"),
             @ApiResponse(responseCode = "400", description = "Bad Request")
     })
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/admin/delete/{id}")
     @PreAuthorize("hasAuthority('SCOPE_ROLE_ADMIN')")
     public ResponseEntity<Void> deleteProduct(@PathVariable @Positive @NotNull(message = "ID is required")  Long id) {
         productService.deleteProduct(id);
@@ -121,7 +121,7 @@ public class ProductRestAPI {
             @ApiResponse(responseCode = "401", description = "Unauthorized"),
             @ApiResponse(responseCode = "500", description = "Internal Server Error"),
     })
-    @DeleteMapping("/deleteAll")
+    @DeleteMapping("/admin/deleteAll")
     @PreAuthorize("hasAuthority('SCOPE_ROLE_ADMIN')")
     public ResponseEntity<Void> deleteAllProducts() {
         productService.deleteAllProduct();
@@ -135,7 +135,7 @@ public class ProductRestAPI {
             @ApiResponse(responseCode = "500", description = "Internal Server Error"),
             @ApiResponse(responseCode = "400", description = "Bad Request")
     })
-    @DeleteMapping("/deleteAllInBatch")
+    @DeleteMapping("/admin/deleteAllInBatch")
     @PreAuthorize("hasAuthority('SCOPE_ROLE_ADMIN')")
     public ResponseEntity<Void> deleteAllProductsInBatch(@RequestBody List<Long> ids) {
         productService.deleteProductsInBatch(ids);

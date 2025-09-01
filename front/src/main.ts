@@ -3,7 +3,7 @@ import { enableProdMode, importProvidersFrom, ErrorHandler } from "@angular/core
 import { registerLocaleData } from "@angular/common";
 import {
   provideHttpClient,
-  withInterceptorsFromDi,
+  withInterceptors,
 } from "@angular/common/http";
 import localeFr from "@angular/common/locales/fr";
 import { BrowserModule, bootstrapApplication } from "@angular/platform-browser";
@@ -15,6 +15,7 @@ import { DialogService } from "primeng/dynamicdialog";
 import { AppComponent } from "./app/app.component";
 import { environment } from "./environments/environment";
 import { GlobalErrorHandler } from "./app/shared/services/handlerError/global-error-handler.service";
+import { authInterceptor } from "./app/shared/interceptors/auth.interceptor";
 if (environment.production) {
   enableProdMode();
 }
@@ -23,7 +24,7 @@ bootstrapApplication(AppComponent, {
   providers: [
     importProvidersFrom(BrowserModule),
     provideHttpClient(
-      withInterceptorsFromDi(),
+      withInterceptors([authInterceptor]),
     ),
     provideAnimations(),
     provideRouter(APP_ROUTES),

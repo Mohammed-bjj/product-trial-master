@@ -33,7 +33,8 @@
                             severity="secondary"
                             [outlined]="true"
                             [rounded]="true"
-                            [disabled]="!isAuthenticated() || product.inventoryStatus === 'OUTOFSTOCK'">
+                            [disabled]="!isAuthenticated() || product.inventoryStatus === 'OUTOFSTOCK'"
+                            (onClick)="onAddToWishlist(product)">
                         </p-button>
                     </div>
                 </div>

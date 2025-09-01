@@ -7,60 +7,18 @@ import {
   ViewEncapsulation,
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { Product } from "app/products/data-access/product.model";
+import { Product, ProductFormData } from "app/products/data-access/product.model";
 import { SelectItem } from "primeng/api";
 import { ButtonModule } from "primeng/button";
 import { DropdownModule } from "primeng/dropdown";
 import { InputNumberModule } from "primeng/inputnumber";
 import { InputTextModule } from "primeng/inputtext";
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { RatingModule } from 'primeng/rating';
 
 @Component({
   selector: "app-product-form",
-  template: `
-    <form #form="ngForm" (ngSubmit)="onSave()">
-      <div class="form-field">
-        <label for="name">Nom</label>
-        <input pInputText
-          type="text"
-          id="name"
-          name="name"
-          [(ngModel)]="editedProduct().name"
-          required>
-      </div>
-      <div class="form-field">
-        <label for="price">Prix</label>
-        <p-inputNumber
-          [(ngModel)]="editedProduct().price"
-          name="price"
-          mode="decimal"
-          required/>
-      </div>
-      <div class="form-field">
-        <label for="description">Description</label>
-        <textarea pInputTextarea
-          id="description"
-          name="description"
-          rows="5"
-          cols="30"
-          [(ngModel)]="editedProduct().description">
-        </textarea>
-      </div>
-      <div class="form-field">
-        <label for="description">Catégorie</label>
-        <p-dropdown
-          [options]="categories"
-          [(ngModel)]="editedProduct().category"
-          name="category"
-          appendTo="body"
-        />
-      </div>
-      <div class="flex justify-content-between">
-        <p-button type="button" (click)="onCancel()" label="Annuler" severity="help"/>
-        <p-button type="submit" [disabled]="!form.valid" label="Enregistrer" severity="success"/>
-      </div>
-    </form>
-  `,
+  templateUrl: "./product-form.component.html",
   styleUrls: ["./product-form.component.scss"],
   standalone: true,
   imports: [
@@ -70,6 +28,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     InputNumberModule,
     InputTextareaModule,
     DropdownModule,
+    RatingModule,
   ],
   encapsulation: ViewEncapsulation.None
 })
@@ -79,15 +38,36 @@ export class ProductFormComponent {
 
 
   @Output() cancel = new EventEmitter<void>();
-  @Output() save = new EventEmitter<Product>();
+  @Output() save = new EventEmitter<ProductFormData>();
 
-  public readonly editedProduct = computed(() => ({ ...this.product() }));
+  public readonly editedProduct = computed(() => {
+    const product = this.product();
+    return {
+      code: product.code,
+      name: product.name,
+      description: product.description,
+      image: product.image,
+      category: product.category,
+      price: product.price,
+      quantity: product.quantity,
+      internalReference: product.internalReference,
+      shellId: product.shellId,
+      inventoryStatus: product.inventoryStatus,
+      rating: product.rating
+    } as ProductFormData;
+  });
 
   public readonly categories: SelectItem[] = [
     { value: "Accessories", label: "Accessories" },
     { value: "Fitness", label: "Fitness" },
     { value: "Clothing", label: "Clothing" },
     { value: "Electronics", label: "Electronics" },
+  ];
+
+  public readonly inventoryStatuses: SelectItem[] = [
+    { value: "INSTOCK", label: "En stock" },
+    { value: "LOWSTOCK", label: "Stock faible" },
+    { value: "OUTOFSTOCK", label: "Rupture de stock" },
   ];
 
   onCancel() {

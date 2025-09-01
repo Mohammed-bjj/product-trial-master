@@ -5,8 +5,7 @@ import { TableModule } from 'primeng/table';
 import { CardModule } from 'primeng/card';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
-import { CartService } from '../shared/services/cart.service';
-import { MockDataHelper, MOCK_PRODUCTS } from '../shared/data/mock-data';
+import { CartService } from './data-access/cart.service';
 
 @Component({
   selector: 'app-cart',
@@ -33,19 +32,4 @@ export class CartComponent {
     this.cartService.clearCart();
   }
 
-  // Méthodes de test avec données fictives
-  public loadTestData() {
-    MockDataHelper.initializeCartWithMockData(this.cartService);
-  }
-
-  public addRandomProduct() {
-    const randomProduct = MockDataHelper.getRandomProduct();
-    this.cartService.addToCart(randomProduct, 1).subscribe();
-  }
-
-  public addAllProducts() {
-    MOCK_PRODUCTS.forEach(product => {
-      this.cartService.addToCart(product, Math.floor(Math.random() * 3) + 1).subscribe();
-    });
-  }
 }
