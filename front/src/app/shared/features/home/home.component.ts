@@ -4,10 +4,8 @@ import { ButtonModule } from "primeng/button";
 import { CardModule } from "primeng/card";
 import { ChartModule } from "primeng/chart";
 import { CommonModule } from "@angular/common";
-import { UserProductViewComponent } from "../../../features/products/components/product-list/user/user-product-view.component";
-import { ProductListComponent } from "../../../features/products/components/product-list/admin/product-list.component";
-import { AuthService } from "../../../shared/features/auth/data-access/auth.service";
-import { ProductsService } from "../../../features/products/data-access/products.service";
+import { UserProductViewComponent, ProductListComponent, ProductsService } from "../../../features";
+import { AuthService } from "../../../shared";
 
 @Component({
   selector: "app-home",
