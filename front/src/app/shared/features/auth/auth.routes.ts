@@ -11,6 +11,6 @@ export const AUTH_ROUTES: Routes = [
     path: "sign-up", 
     component: SignUpComponent
   },
-  { path: "", redirectTo: "list", pathMatch: "full" },
-  { path: "**", redirectTo: "list" }
+  { path: "", redirectTo: "sign-in", pathMatch: "full" },
+  { path: "**", redirectTo: "sign-in" }
 ];

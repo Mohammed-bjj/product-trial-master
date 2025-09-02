@@ -155,7 +155,7 @@ Compte Admin :
  - password : figuig
 
 Compte User :
-- email : user1@example.com
+- email : user2@example.com
 - password : figuig
 
 

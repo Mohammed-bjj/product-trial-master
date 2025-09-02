@@ -5,10 +5,10 @@ import { authGuard } from "../shared/core/guards/admin.guard";
 
 export const PANIERS_ROUTES: Routes = [
   {
-    path: "list", 
+    path: "panier", 
     component:  CartComponent,
     canActivate: [authGuard]
   },
-  { path: "", redirectTo: "list", pathMatch: "full" },
-  { path: "**", redirectTo: "list" }
+  { path: "", redirectTo: "panier", pathMatch: "full" },
+  { path: "**", redirectTo: "panier" }
 ];

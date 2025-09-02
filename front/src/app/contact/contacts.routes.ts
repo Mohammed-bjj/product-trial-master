@@ -10,6 +10,6 @@ export const CONTACT_ROUTES: Routes = [
     component:  ContactComponent,
     canActivate: [authGuard]
   },
-  { path: "", redirectTo: "list", pathMatch: "full" },
-  { path: "**", redirectTo: "list" }
+  { path: "", redirectTo: "form", pathMatch: "full" },
+  { path: "**", redirectTo: "form" }
 ];

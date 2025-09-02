@@ -4,12 +4,12 @@ import { authGuard } from "../shared/core/guards/admin.guard";
 
 
 
-export const PANIERS_ROUTES: Routes = [
+export const WISHLIST_ROUTES: Routes = [
   {
-    path: "list", 
+    path: "wishlist", 
     component:  WishlistComponent,
     canActivate: [authGuard]
   },
-  { path: "", redirectTo: "list", pathMatch: "full" },
-  { path: "**", redirectTo: "list" }
+  { path: "", redirectTo: "wishlist", pathMatch: "full" },
+  { path: "**", redirectTo: "wishlist" }
 ];

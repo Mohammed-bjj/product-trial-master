@@ -17,7 +17,7 @@ export const APP_ROUTES: Routes = [
   },
   {
     path: "wishlist",
-    loadChildren: () => import("./wishList/wishList.routes").then((m) => m.PANIERS_ROUTES),
+    loadChildren: () => import("./wishList/wishList.routes").then((m) => m.WISHLIST_ROUTES),
   },
   {
     path: "contact",

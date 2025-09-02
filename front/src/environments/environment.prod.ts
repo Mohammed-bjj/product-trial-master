@@ -1,6 +1,7 @@
 export const environment = {
   production: true,
-  enableLogging: false;
+  enableLogging: false,
   logLevel: 'error',
-  appVersion: '1.0.0'
+  appVersion: '1.0.0',
+  apiBaseUrl: 'https://your-production-api.com/api',
 };
