@@ -9,19 +9,19 @@ export const APP_ROUTES: Routes = [
   },
   {
     path: "products",
-    loadChildren: () => import("./products/products.routes").then((m) => m.PRODUCTS_ROUTES)
+    loadChildren: () => import("./features/products/products.routes").then((m) => m.PRODUCTS_ROUTES)
   },
   {
     path: "cart",
-    loadChildren: () => import("./paniers/paniers.routes").then((m) => m.PANIERS_ROUTES),
+    loadChildren: () => import("./features/paniers/paniers.routes").then((m) => m.PANIERS_ROUTES)
   },
   {
     path: "wishlist",
-    loadChildren: () => import("./wishList/wishList.routes").then((m) => m.WISHLIST_ROUTES),
+    loadChildren: () => import("./features/wishList/wishList.routes").then((m) => m.WISHLIST_ROUTES),
   },
   {
     path: "contact",
-    loadChildren: () => import("./contact/contacts.routes").then((m) => m.CONTACT_ROUTES),
+    loadChildren: () => import("./features/contact/contacts.routes").then((m) => m.CONTACT_ROUTES),
   },
   {
     path: "account",

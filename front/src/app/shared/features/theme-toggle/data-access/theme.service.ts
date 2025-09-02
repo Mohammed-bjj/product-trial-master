@@ -1,7 +1,7 @@
 import { Injectable, signal, inject } from '@angular/core';
-import { GlobalErrorHandler } from '../../../core/handleError/global-error-handler.service';
-import { ERROR_MESSAGES } from '../../../core/handleError/constantes-error-messages';
-import { ThemeConfigError } from '../../../core/handleError/custom-errors.model';
+import { GlobalErrorHandler } from '../../../../core/handleError/global-error-handler.service';
+import { ERROR_MESSAGES } from '../../../../core/handleError/constantes-error-messages';
+import { ThemeConfigError } from '../../../../core/handleError/custom-errors.model';
 
 @Injectable({
   providedIn: 'root'

@@ -14,8 +14,8 @@ import { ConfirmationService, MessageService } from "primeng/api";
 import { DialogService } from "primeng/dynamicdialog";
 import { AppComponent } from "./app/app.component";
 import { environment } from "./environments/environment";
-import { GlobalErrorHandler } from "./app/shared/core/handleError/global-error-handler.service";
-import { authInterceptor } from "./app/shared/core/interceptors/auth.interceptor";
+import { GlobalErrorHandler } from "./app/core/handleError/global-error-handler.service";
+import { authInterceptor } from "./app/core";
 if (environment.production) {
   enableProdMode();
 }
